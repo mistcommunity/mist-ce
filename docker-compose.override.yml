@@ -3,8 +3,6 @@
 # etc. This is not a standalone file. It extends docker-compose.yml and
 # requires a local recursive clone of the parent git repository.
 
-version: '2.0'
-
 services:
   rabbitmq:
     ports:

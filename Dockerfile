@@ -1,5 +1,5 @@
 # Inherit the mist.api image.
-ARG FROM_IMAGE=mist/api:staging
+ARG FROM_IMAGE=ghcr.io/mistcommunity/mist:latest
 FROM $FROM_IMAGE
 
 # Install orchestration plugin
@@ -17,7 +17,7 @@ ARG MIST_VERSION_NAME
 # Variables defined solely by ARG are accessible as environmental variables
 # during build but not during runtime. To persist these in the image, they're
 # redefined as ENV in addition to ARG.
-ENV VERSION_REPO=mistio/mist.io \
+ENV VERSION_REPO=mistcommunity/mist-ce \
     VERSION_SHA=$MIST_VERSION_SHA \
     VERSION_NAME=$MIST_VERSION_NAME
 RUN echo "{\"sha\":\"$VERSION_SHA\",\"name\":\"$VERSION_NAME\",\"repo\":\"$VERSION_REPO\",\"modified\":false}" \

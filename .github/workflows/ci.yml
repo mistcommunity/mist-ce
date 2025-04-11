@@ -1,0 +1,464 @@
+name: CI
+
+on:
+  push:
+    branches:
+     - master
+  # pull_request:
+  workflow_dispatch:
+
+env:
+  # IMAGE_BASE is used to build full image names (ghcr.io/<owner>).
+  IMAGE_BASE: ghcr.io/${{ github.repository_owner }}
+  # Base for submodule images if not set otherwise.
+  SUBMODULES_IMAGE: mistcommunity
+
+jobs:
+  discover-submodules:
+    name: Discover Submodules
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code (with submodules)
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Generate submodules CSV
+        run: |
+          # List all submodules with their commit hash and name.
+          git submodule status --recursive | \
+            sed 's/^[ +-]\([0-9a-f]*\) \([^ ]*\).*$/\1,\2/' > submodules.csv
+
+      - name: Upload submodules artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: submodules
+          path: submodules.csv
+
+  build-api:
+    name: Build API Image
+    needs: discover-submodules
+    runs-on: ubuntu-latest
+    env:
+      GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
+    steps:
+      - name: Checkout code (with submodules)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: '0'
+          submodules: recursive
+
+      - name: Download submodules artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: submodules
+
+      - name: Log in to GitHub Container Registry
+        run: echo "${GHCR_TOKEN}" | docker login ghcr.io -u "mistcommunity-bot" --password-stdin
+
+      - name: Build API image
+        run: |
+          set -e
+          # Define helper functions.
+          docker_pull() {
+            img=$1
+            tries=60
+            sleep_time=10
+            echo "Pulling image $img (up to $tries attempts)..."
+            for i in $(seq 1 $tries); do
+              if docker pull "$img"; then
+                echo "Image $img pulled successfully!"
+                return 0
+              fi
+              sleep $sleep_time
+            done
+            echo "Failed to pull image $img."
+            return 1
+          }
+          docker_push() {
+            local src_img=$1
+            local dest_repo=$2
+            # Define tags: commit SHA, branch slug and add "latest" for master.
+            tags=("${GITHUB_SHA}" "${GITHUB_REF##*/}")
+            if [ "${GITHUB_REF##*/}" = "master" ]; then
+              tags+=("master")
+            fi
+            export GIT_TAG=$(git describe --exact-match --tags $(git log -n1 --pretty='%h'))
+            if [ "$GIT_TAG" ]; then
+              tags+=("$GIT_TAG")
+            fi
+            for tag in "${tags[@]}"; do
+              dest="${IMAGE_BASE}/${dest_repo}:${tag}"
+              echo "Tagging image $src_img as $dest..."
+              docker tag "$src_img" "$dest"
+              echo "Pushing image $dest..."
+              docker push "$dest"
+            done
+          }
+          get_submodule_sha() {
+            grep ",$1\$" submodules.csv | cut -d, -f1
+          }
+          # Use the submodule SHA for the API image.
+          SRC_IMG="ghcr.io/${SUBMODULES_IMAGE}/mist:$(get_submodule_sha api)"
+          docker_pull "$SRC_IMG"
+          # Build API image with build args (replace '.' with your proper context if needed)
+          docker build \
+            -t "ghcr.io/${GITHUB_REPOSITORY_OWNER##*/}/api:${GITHUB_SHA}" \
+            --build-arg FROM_IMAGE="$SRC_IMG" \
+            --build-arg MIST_VERSION_SHA="${GITHUB_SHA}" \
+            --build-arg MIST_VERSION_NAME="${GITHUB_REF##*/}" \
+            .
+          docker_push "ghcr.io/${GITHUB_REPOSITORY_OWNER##*/}/api:${GITHUB_SHA}" "api"
+
+  build-landing:
+    name: Build Landing Image
+    needs: discover-submodules
+    runs-on: ubuntu-latest
+    env:
+      GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
+    steps:
+      - name: Checkout code (with submodules)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: '0'
+          submodules: recursive
+
+      - name: Download submodules artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: submodules
+
+      - name: Log in to GitHub Container Registry
+        run: echo "${GHCR_TOKEN}" | docker login ghcr.io -u "mistcommunity-bot" --password-stdin
+
+      - name: Build Landing image
+        run: |
+          set -e
+          # Define helper functions.
+          docker_pull() {
+            img=$1
+            tries=60
+            sleep_time=10
+            echo "Pulling image $img (up to $tries attempts)..."
+            for i in $(seq 1 $tries); do
+              if docker pull "$img"; then
+                echo "Image $img pulled successfully!"
+                return 0
+              fi
+              sleep $sleep_time
+            done
+            echo "Failed to pull image $img."
+            return 1
+          }
+          docker_push() {
+            local src_img=$1
+            local dest_repo=$2
+            # Define tags: commit SHA, branch slug and add "latest" for master.
+            tags=("${GITHUB_SHA}" "${GITHUB_REF##*/}")
+            if [ "${GITHUB_REF##*/}" = "master" ]; then
+              tags+=("master")
+            fi
+            export GIT_TAG=$(git describe --exact-match --tags $(git log -n1 --pretty='%h'))
+            if [ "$GIT_TAG" ]; then
+              tags+=("$GIT_TAG")
+            fi
+            for tag in "${tags[@]}"; do
+              dest="${IMAGE_BASE}/${dest_repo}:${tag}"
+              echo "Tagging image $src_img as $dest..."
+              docker tag "$src_img" "$dest"
+              echo "Pushing image $dest..."
+              docker push "$dest"
+            done
+          }
+          get_submodule_sha() {
+            grep ",$1\$" submodules.csv | cut -d, -f1
+          }
+          # Use the submodule SHA for the Landing image.
+          SRC_IMG="ghcr.io/${SUBMODULES_IMAGE}/landing:$(get_submodule_sha landing)"
+          docker_pull "$SRC_IMG"
+          docker_push "$SRC_IMG" "landing"
+
+  build-portal:
+    name: Build Portal Image
+    needs: discover-submodules
+    runs-on: ubuntu-latest
+    env:
+      GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
+    steps:
+      - name: Checkout code (with submodules)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: '0'
+          submodules: recursive
+
+      - name: Download submodules artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: submodules
+
+      - name: Log in to GitHub Container Registry
+        run: echo "${GHCR_TOKEN}" | docker login ghcr.io -u "mistcommunity-bot" --password-stdin
+
+      - name: Build Portal image
+        run: |
+          set -e
+          # Define helper functions.
+          docker_pull() {
+            img=$1
+            tries=60
+            sleep_time=10
+            echo "Pulling image $img (up to $tries attempts)..."
+            for i in $(seq 1 $tries); do
+              if docker pull "$img"; then
+                echo "Image $img pulled successfully!"
+                return 0
+              fi
+              sleep $sleep_time
+            done
+            echo "Failed to pull image $img."
+            return 1
+          }
+          docker_push() {
+            local src_img=$1
+            local dest_repo=$2
+            # Define tags: commit SHA, branch slug and add "latest" for master.
+            tags=("${GITHUB_SHA}" "${GITHUB_REF##*/}")
+            if [ "${GITHUB_REF##*/}" = "master" ]; then
+              tags+=("master")
+            fi
+            export GIT_TAG=$(git describe --exact-match --tags $(git log -n1 --pretty='%h'))
+            if [ "$GIT_TAG" ]; then
+              tags+=("$GIT_TAG")
+            fi
+            for tag in "${tags[@]}"; do
+              dest="${IMAGE_BASE}/${dest_repo}:${tag}"
+              echo "Tagging image $src_img as $dest..."
+              docker tag "$src_img" "$dest"
+              echo "Pushing image $dest..."
+              docker push "$dest"
+            done
+          }
+          get_submodule_sha() {
+            grep ",$1\$" submodules.csv | cut -d, -f1
+          }
+          # Use the submodule SHA for the Portal image.
+          SRC_IMG="ghcr.io/${SUBMODULES_IMAGE}/portal:$(get_submodule_sha portal)"
+          docker_pull "$SRC_IMG"
+          docker_push "$SRC_IMG" "portal"
+
+  build-ui:
+    name: Build UI Image
+    needs: discover-submodules
+    runs-on: ubuntu-latest
+    env:
+      GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
+    steps:
+      - name: Checkout code (with submodules)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: '0'
+          submodules: recursive
+
+      - name: Download submodules artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: submodules
+
+      - name: Log in to GitHub Container Registry
+        run: echo "${GHCR_TOKEN}" | docker login ghcr.io -u "mistcommunity-bot" --password-stdin
+
+      - name: Build UI image
+        run: |
+          set -e
+          # Define helper functions.
+          docker_pull() {
+            img=$1
+            tries=60
+            sleep_time=10
+            echo "Pulling image $img (up to $tries attempts)..."
+            for i in $(seq 1 $tries); do
+              if docker pull "$img"; then
+                echo "Image $img pulled successfully!"
+                return 0
+              fi
+              sleep $sleep_time
+            done
+            echo "Failed to pull image $img."
+            return 1
+          }
+          docker_push() {
+            local src_img=$1
+            local dest_repo=$2
+            # Define tags: commit SHA, branch slug and add "latest" for master.
+            tags=("${GITHUB_SHA}" "${GITHUB_REF##*/}")
+            if [ "${GITHUB_REF##*/}" = "master" ]; then
+              tags+=("master")
+            fi
+            export GIT_TAG=$(git describe --exact-match --tags $(git log -n1 --pretty='%h'))
+            if [ "$GIT_TAG" ]; then
+              tags+=("$GIT_TAG")
+            fi
+            for tag in "${tags[@]}"; do
+              dest="${IMAGE_BASE}/${dest_repo}:${tag}"
+              echo "Tagging image $src_img as $dest..."
+              docker tag "$src_img" "$dest"
+              echo "Pushing image $dest..."
+              docker push "$dest"
+            done
+          }
+          get_submodule_sha() {
+            grep ",$1\$" submodules.csv | cut -d, -f1
+          }
+          # Use the submodule SHA for the UI image.
+          SRC_IMG="ghcr.io/${SUBMODULES_IMAGE}/ui:$(get_submodule_sha ui)"
+          docker_pull "$SRC_IMG"
+          docker_push "$SRC_IMG" "ui"
+
+  build-tests:
+    name: Build Tests Image
+    needs: discover-submodules
+    runs-on: ubuntu-latest
+    env:
+      GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
+    steps:
+      - name: Checkout code (with submodules)
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Download submodules artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: submodules
+
+      - name: Log in to GitHub Container Registry
+        run: echo "${GHCR_TOKEN}" | docker login ghcr.io -u "mistcommunity-bot" --password-stdin
+
+      - name: Build Tests image
+        run: |
+          set -e
+          # (Optional) Resync/update specific submodule if needed.
+          git submodule sync --recursive api || true
+          git submodule update --init --recursive api
+
+          docker_pull() {
+            img=$1
+            tries=60
+            sleep_time=10
+            echo "Pulling image $img (up to $tries attempts)..."
+            for i in $(seq 1 $tries); do
+              if docker pull "$img"; then
+                echo "Image $img pulled successfully!"
+                return 0
+              fi
+              sleep $sleep_time
+            done
+            echo "Failed to pull image $img."
+            return 1
+          }
+          docker_push() {
+            local src_img=$1
+            local dest_repo=$2
+            tags=("${GITHUB_SHA}" "${GITHUB_REF##*/}")
+            if [ "${GITHUB_REF##*/}" = "master" ]; then
+              tags+=("master")
+            fi
+            for tag in "${tags[@]}"; do
+              dest="${IMAGE_BASE}/${dest_repo}:${tag}"
+              echo "Tagging image $src_img as $dest..."
+              docker tag "$src_img" "$dest"
+              echo "Pushing image $dest..."
+              docker push "$dest"
+            done
+          }
+          get_submodule_sha() {
+            grep ",$1\$" submodules.csv | cut -d, -f1
+          }
+          # For tests image, determine the source image using the submodule SHA.
+          SRC_IMG="ghcr.io/${SUBMODULES_IMAGE}/tests:$(get_submodule_sha tests)"
+          IMG="tests"
+          docker build \
+            -t "ghcr.io/${GITHUB_REPOSITORY_OWNER##*/}/${IMG}:${GITHUB_SHA}" \
+            --build-arg SRC_IMG="$SRC_IMG" \
+            -f docker/tests/Dockerfile .
+          docker_push "ghcr.io/${GITHUB_REPOSITORY_OWNER##*/}/${IMG}:${GITHUB_SHA}" "$IMG"
+
+  build-other:
+    name: Build Other Images
+    needs: discover-submodules
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        image: [elasticsearch-manage, gocky, logstash, nginx, sheller, vault, wsproxy]
+    env:
+      GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: '0'
+
+      - name: Log in to GitHub Container Registry
+        run: echo "${GHCR_TOKEN}" | docker login ghcr.io -u "mistcommunity-bot" --password-stdin
+
+      - name: Build ${{ matrix.image }} image
+        run: |
+          set -e
+          # Build the image using the Dockerfile in docker/<image>.
+          docker build -t "ghcr.io/${GITHUB_REPOSITORY_OWNER##*/}/${{ matrix.image }}:${GITHUB_SHA}" docker/${{ matrix.image }}
+          docker_push() {
+            local src_img=$1
+            local dest_repo=$2
+            tags=("${GITHUB_SHA}" "${GITHUB_REF##*/}")
+            if [ "${GITHUB_REF##*/}" = "master" ]; then
+              tags+=("master")
+            fi
+            export GIT_TAG=$(git describe --exact-match --tags $(git log -n1 --pretty='%h'))
+            if [ "$GIT_TAG" ]; then
+              tags+=("$GIT_TAG")
+            fi
+            for tag in "${tags[@]}"; do
+              dest="${IMAGE_BASE}/${dest_repo}:${tag}"
+              echo "Tagging image $src_img as $dest..."
+              docker tag "$src_img" "$dest"
+              echo "Pushing image $dest..."
+              docker push "$dest"
+            done
+          }
+          docker_push "ghcr.io/${GITHUB_REPOSITORY_OWNER##*/}/${{ matrix.image }}:${GITHUB_SHA}" "${{ matrix.image }}"
+
+  compose:
+    name: Generate Compose File
+    runs-on: ubuntu-latest
+    env:
+      IMAGE_BASE: ghcr.io/${{ github.repository_owner }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: '0'
+
+      - name: Install gettext for envsubst
+        run: |
+          sudo apt-get update && sudo apt-get install -y gettext
+
+      - name: Generate docker-compose file
+        run: |
+          mkdir -p artifacts
+          # Set the registry and tag variables used in the compose file.
+          export IMG_REGISTRY="${IMAGE_BASE}"
+          echo "IMG_REGISTRY=$IMG_REGISTRY"
+          export IMG_TAG="${GITHUB_REF##*/}"
+          export GIT_TAG=$(git describe --exact-match --tags $(git log -n1 --pretty='%h'))
+          if [ "$GIT_TAG" ]; then
+            export IMG_TAG=$GIT_TAG
+          fi
+          echo "IMG_TAG=$IMG_TAG"
+          export CONF_DIR=/etc/mist
+          envsubst < docker-compose.yml > artifacts/docker-compose.yml
+
+      - name: Upload docker-compose artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-compose
+          path: artifacts/docker-compose.yml
