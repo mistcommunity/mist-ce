@@ -1,6 +1,6 @@
-FROM mist/python3:latest
+FROM python:3.12-slim-bullseye
 
-RUN pip install --no-cache-dir elasticsearch==6.8.0 certifi
+RUN pip install --no-cache-dir elasticsearch==8.18.0 certifi
 
 COPY . /opt/elasticsearch-manage
 
