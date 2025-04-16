@@ -7,21 +7,21 @@ services:
 
 
   mongodb:
-    image: mongo:3.2
+    image: mongo:8.0
     restart: on-failure:5
     volumes:
       - mongodb:/data/db:rw
 
   rabbitmq:
-    image: mist/rabbitmq
+    image: rabbitmq:4.1.0-management
     restart: on-failure:5
 
   memcached:
-    image: memcached:1.6.9
+    image: memcached:1.6.38
     restart: on-failure:5
 
   elasticsearch:
-    image: elasticsearch:5.6.16
+    image: elasticsearch:8.17.5
     restart: on-failure:5
     volumes:
       - elasticsearch:/usr/share/elasticsearch/data:rw
@@ -44,7 +44,7 @@ services:
       - rabbitmq
 
   kibana:
-    image: kibana:5.6.10
+    image: kibana:8.16.6
     environment:
       ELASTICSEARCH_URL: http://elasticsearch:9200
     restart: on-failure:5
@@ -143,7 +143,7 @@ services:
       - ui
 
   vminsert:
-    image: victoriametrics/vminsert:v1.60.0-cluster
+    image: victoriametrics/vminsert:v1.115.0-cluster
     command:
       - '--influxTrimTimestamp=1s'
       - '--storageNode=vmstorage:8400'
@@ -151,7 +151,7 @@ services:
       - 8480
 
   vmstorage:
-    image: victoriametrics/vmstorage:v1.60.0-cluster
+    image: victoriametrics/vmstorage:v1.115.0-cluster
     command:
       - '--retentionPeriod=12'
       - '--storageDataPath=/var/lib/victoria-metrics-data'
@@ -163,7 +163,7 @@ services:
       - victoria-metrics:/var/lib/victoria-metrics-data
 
   vmselect:
-    image: victoriametrics/vmselect:v1.60.0-cluster
+    image: victoriametrics/vmselect:v1.115.0-cluster
     command:
       - '--search.latencyOffset=0s'
       - '--search.cacheTimestampOffset=15m'
@@ -173,7 +173,7 @@ services:
       - 8481
 
   influxdb:
-    image: influxdb:1.8.4
+    image: influxdb:2.7.11
     environment:
       INFLUXDB_DB: telegraf
       INFLUXDB_BIND_ADDRESS: "0.0.0.0:8088"
@@ -193,18 +193,16 @@ services:
       - rabbitmq
 
   traefik:
-    image: traefik:v1.5
+    image: traefik:v3.3.5
     command:
-      # - --logLevel=INFO
       - --accesslog
       # - --accesslog.format=json
       - --api
-      - --api.entrypoint=traefik
-      - --rest
-      - --rest.entrypoint=traefik
-      - --defaultentrypoints=http
-      - --entrypoints=Name:http Address::80
-      - --entrypoints=Name:traefik Address::8080
+      - --api.dashboard
+      - --api.insecure
+      - --entryPoints.http.address=:80
+      - --global.checknewversion=false
+      - --log.level=INFO
     ports:
       - 8040:80
       - 8041:8080
