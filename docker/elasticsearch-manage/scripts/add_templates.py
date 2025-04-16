@@ -17,11 +17,9 @@ EXCLUDED = ('heapster', 'audit', )  # Templates to be excluded.
 
 def es_client():
     es = Elasticsearch(
-        os.getenv('ELASTIC_HOST', 'elasticsearch'),
-        port=os.getenv('ELASTIC_PORT', '9200'),
+        os.getenv('ELASTIC_HOST', 'http://localhost:9200'),
         http_auth=(os.getenv('ELASTIC_USER', ''),
                    os.getenv('ELASTIC_PASSWORD', '')),
-        use_ssl=bool(os.getenv('ELASTIC_SSL', False)),
         verify_certs=bool(os.getenv('ELASTIC_VERIFY_CERTS', False)),
         ca_certs=certifi.where()
     )
