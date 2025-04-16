@@ -22,9 +22,9 @@ services:
     ports:
       - 5601:5601
 
-  elasticsearch-manage:
-    volumes:
-      - ./docker/elasticsearch-manage:/opt/elasticsearch-manage
+  # elasticsearch-manage:
+  #   volumes:
+  #     - ./docker/elasticsearch-manage:/opt/elasticsearch-manage
 
   debugger:
     image: mist/debugger
