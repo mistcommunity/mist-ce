@@ -25,8 +25,12 @@ services:
     restart: on-failure:5
     volumes:
       - elasticsearch:/usr/share/elasticsearch/data:rw
-    #environment:
-    #  ES_JAVA_OPTS: "-Dlog4j2.formatMsgNoLookups=true"
+    environment:
+      ES_JAVA_OPTS: -Xms2g -Xmx2g -Dlog4j2.formatMsgNoLookups=true
+      bootstrap.memory_lock: true
+      discovery.type: single-node
+      xpack.security.enabled: false
+      xpack.security.enrollment.enabled: false
 
   logstash:
     image: $IMG_REGISTRY/logstash:$IMG_TAG
