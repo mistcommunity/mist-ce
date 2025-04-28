@@ -202,11 +202,15 @@ services:
       - 8481
 
   influxdb:
-    image: influxdb:2.7.11
+    image: influxdb:2.7
     platform: linux/x86_64
     environment:
-      INFLUXDB_DB: telegraf
-      INFLUXDB_BIND_ADDRESS: "0.0.0.0:8088"
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=mist
+      - DOCKER_INFLUXDB_INIT_PASSWORD=mist-password
+      - DOCKER_INFLUXDB_INIT_ORG=mist
+      - DOCKER_INFLUXDB_INIT_BUCKET=metering
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=mist-token
     ports:
       - 8083:8083
       - 8086:8086
