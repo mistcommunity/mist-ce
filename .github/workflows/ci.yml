@@ -81,7 +81,7 @@ jobs:
             # Define tags: commit SHA, branch slug and add "latest" for master.
             tags=("${GITHUB_SHA}" "${GITHUB_REF##*/}")
             if [ "${GITHUB_REF##*/}" = "master" ]; then
-              tags+=("latest")
+              tags+=("master")
             fi
             export GIT_TAG=$(git describe --exact-match --tags $(git log -n1 --pretty='%h'))
             if [ "$GIT_TAG" ]; then
@@ -156,7 +156,7 @@ jobs:
             # Define tags: commit SHA, branch slug and add "latest" for master.
             tags=("${GITHUB_SHA}" "${GITHUB_REF##*/}")
             if [ "${GITHUB_REF##*/}" = "master" ]; then
-              tags+=("latest")
+              tags+=("master")
             fi
             export GIT_TAG=$(git describe --exact-match --tags $(git log -n1 --pretty='%h'))
             if [ "$GIT_TAG" ]; then
@@ -177,6 +177,74 @@ jobs:
           SRC_IMG="ghcr.io/${SUBMODULES_IMAGE}/landing:$(get_submodule_sha landing)"
           docker_pull "$SRC_IMG"
           docker_push "$SRC_IMG" "landing"
+
+  build-portal:
+    name: Build Portal Image
+    needs: discover-submodules
+    runs-on: ubuntu-latest
+    env:
+      GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
+    steps:
+      - name: Checkout code (with submodules)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: '0'
+          submodules: recursive
+
+      - name: Download submodules artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: submodules
+
+      - name: Log in to GitHub Container Registry
+        run: echo "${GHCR_TOKEN}" | docker login ghcr.io -u "mistcommunity-bot" --password-stdin
+
+      - name: Build Portal image
+        run: |
+          set -e
+          # Define helper functions.
+          docker_pull() {
+            img=$1
+            tries=60
+            sleep_time=10
+            echo "Pulling image $img (up to $tries attempts)..."
+            for i in $(seq 1 $tries); do
+              if docker pull "$img"; then
+                echo "Image $img pulled successfully!"
+                return 0
+              fi
+              sleep $sleep_time
+            done
+            echo "Failed to pull image $img."
+            return 1
+          }
+          docker_push() {
+            local src_img=$1
+            local dest_repo=$2
+            # Define tags: commit SHA, branch slug and add "latest" for master.
+            tags=("${GITHUB_SHA}" "${GITHUB_REF##*/}")
+            if [ "${GITHUB_REF##*/}" = "master" ]; then
+              tags+=("master")
+            fi
+            export GIT_TAG=$(git describe --exact-match --tags $(git log -n1 --pretty='%h'))
+            if [ "$GIT_TAG" ]; then
+              tags+=("$GIT_TAG")
+            fi
+            for tag in "${tags[@]}"; do
+              dest="${IMAGE_BASE}/${dest_repo}:${tag}"
+              echo "Tagging image $src_img as $dest..."
+              docker tag "$src_img" "$dest"
+              echo "Pushing image $dest..."
+              docker push "$dest"
+            done
+          }
+          get_submodule_sha() {
+            grep ",$1\$" submodules.csv | cut -d, -f1
+          }
+          # Use the submodule SHA for the Portal image.
+          SRC_IMG="ghcr.io/${SUBMODULES_IMAGE}/portal:$(get_submodule_sha portal)"
+          docker_pull "$SRC_IMG"
+          docker_push "$SRC_IMG" "portal"
 
   build-ui:
     name: Build UI Image
@@ -224,7 +292,7 @@ jobs:
             # Define tags: commit SHA, branch slug and add "latest" for master.
             tags=("${GITHUB_SHA}" "${GITHUB_REF##*/}")
             if [ "${GITHUB_REF##*/}" = "master" ]; then
-              tags+=("latest")
+              tags+=("master")
             fi
             export GIT_TAG=$(git describe --exact-match --tags $(git log -n1 --pretty='%h'))
             if [ "$GIT_TAG" ]; then
@@ -293,7 +361,7 @@ jobs:
             local dest_repo=$2
             tags=("${GITHUB_SHA}" "${GITHUB_REF##*/}")
             if [ "${GITHUB_REF##*/}" = "master" ]; then
-              tags+=("latest")
+              tags+=("master")
             fi
             for tag in "${tags[@]}"; do
               dest="${IMAGE_BASE}/${dest_repo}:${tag}"
@@ -321,7 +389,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        image: [nginx, gocky, logstash, elasticsearch-manage, huproxy, wsproxy]
+        image: [elasticsearch-manage, gocky, logstash, nginx, sheller, vault, wsproxy]
     env:
       GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
     steps:
@@ -343,7 +411,7 @@ jobs:
             local dest_repo=$2
             tags=("${GITHUB_SHA}" "${GITHUB_REF##*/}")
             if [ "${GITHUB_REF##*/}" = "master" ]; then
-              tags+=("latest")
+              tags+=("master")
             fi
             export GIT_TAG=$(git describe --exact-match --tags $(git log -n1 --pretty='%h'))
             if [ "$GIT_TAG" ]; then
