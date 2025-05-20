@@ -15,10 +15,6 @@ services:
     environment:
       RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS: '-rabbitmq_stream advertised_host rabbitmq -rabbit loopback_users "none"'
 
-  memcached:
-    image: memcached:1.6.38
-    restart: on-failure:5
-
   elasticsearch:
     image: elasticsearch:7.10.1
     restart: on-failure:5
@@ -127,6 +123,7 @@ services:
     <<: *backend
     platform: linux/x86_64
     command: bin/wait-all bin/dramatiq
+
   portal:
     image: $IMG_REGISTRY/portal:$IMG_TAG
     command: sh /entry.sh

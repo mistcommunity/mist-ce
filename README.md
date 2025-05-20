@@ -326,7 +326,6 @@ The following table lists all the configurable parameters in Mist's Helm chart a
 | `mongodb.deploy`                           | Deploy MongoDB cluster.                                                           | `true`                            |
 | `mongodb.host`                             | External MongoDB address. Only used when `mongodb.deploy` is `false`.                | `''`                              |
 | `mongodb.port`                             | External MongoDB port.                                                              | `27017`                           |
-| `memcached.host`                           | Memcached host in the format `{host}:{port}`.                                        | `''`                              |
 | `monitoring.defaultMethod`                 | Available options: `telegraf-victoriametrics` and `telegraf-influxdb`                 | `telegraf-influxdb`               |
 | `auth.email.signup`                        | Allow signups with email & password.                                                  | `false`                           |
 | `auth.email.signin`                        | Allow signins with email & password.                                                  | `true`                            |

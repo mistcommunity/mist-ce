@@ -234,10 +234,6 @@ mongodb:
   auth:
     enabled: false
 
-# Memcached settings. Change this to use a remote Memcached.
-memcached:
-  host: ''
-
 # Docker settings (used by orchestration plugin).
 # Either an external dockerhost or the deploy option must be set
 # for orchestration to work.
