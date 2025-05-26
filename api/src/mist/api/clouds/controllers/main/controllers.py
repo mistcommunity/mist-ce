@@ -157,13 +157,6 @@ class SoftLayerMainController(BaseMainController):
     DnsController = dns_ctls.SoftLayerDNSController
 
 
-class AzureMainController(BaseMainController):
-
-    provider = 'azure'
-    ComputeController = compute_ctls.AzureComputeController
-    StorageController = storage_ctls.AzureStorageController
-
-
 class AzureArmMainController(BaseMainController):
 
     provider = 'azure_arm'
