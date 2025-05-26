@@ -1,7 +1,6 @@
 import '@polymer/app-route/app-route.js';
 import '@mistio/mist-list/mist-list.js';
 import '@polymer/paper-fab/paper-fab.js';
-import './networks/network-create.js';
 import './networks/network-page.js';
 import './networks/network-actions.js';
 // import './helpers/mist-lists-behavior.js';
@@ -60,16 +59,6 @@ export default class PageNetworks extends mixinBehaviors(
             <p slot="no-items-found">No networks found.</p>
           </mist-list>
         </network-actions>
-        <div
-          class="absolute-bottom-right"
-          hidden$="[[!checkPerm('network', 'add', null, model.org, model.user)]]"
-        >
-          <paper-fab
-            id="networkAdd"
-            icon="add"
-            on-tap="_addResource"
-          ></paper-fab>
-        </div>
       </template>
       <network-create
         model="[[model]]"

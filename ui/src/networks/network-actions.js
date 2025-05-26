@@ -25,12 +25,6 @@ const NETWORK_ACTIONS = {
     confirm: false,
     multi: true,
   },
-  delete: {
-    name: 'delete',
-    icon: 'delete',
-    confirm: true,
-    multi: true,
-  },
 };
 Polymer({
   _template: html`
@@ -114,7 +108,6 @@ Polymer({
   itemActions(network) {
     const arr = [];
     if (network) {
-      arr.push('delete');
       arr.push('tag');
       if (
         this.org.ownership_enabled &&
@@ -151,29 +144,6 @@ Polymer({
       });
     }
     return [];
-  },
-
-  _delete() {
-    // set up iron ajax
-    this.$.request.headers['Content-Type'] = 'application/json';
-    this.$.request.headers['Csrf-Token'] = CSRFToken.value;
-    this.$.request.method = 'DELETE';
-    this.$.request.body = null;
-
-    for (let i = 0; i < this.items.length; i++) {
-      this.$.request.url = `/api/v1/clouds/${this.items[i].cloud}/networks/${this.items[i].id}`;
-      this.$.request.generateRequest();
-      this.dispatchEvent(
-        new CustomEvent('toast', {
-          bubbles: true,
-          composed: true,
-          detail: {
-            msg: `Deleting ${this.items[i].name}`,
-            duration: 1000,
-          },
-        })
-      );
-    }
   },
 
   _showDialog(info) {
@@ -234,9 +204,6 @@ Polymer({
   },
 
   performAction(action, _items) {
-    if (action.name === 'delete') {
-      this._delete();
-    }
   },
 
   handleResponse(e) {
@@ -267,18 +234,6 @@ Polymer({
             msg: 'Successful ownership transfer',
             duration: 3000,
           },
-        })
-      );
-    }
-    if (
-      !this.$.request.body ||
-      (!this.$.request.body.action && this.$.request.method === 'DELETE')
-    ) {
-      this.dispatchEvent(
-        new CustomEvent('network-deleted', {
-          bubbles: true,
-          composed: true,
-          detail: { responseURL: e.detail.xhr.responseURL },
         })
       );
     }

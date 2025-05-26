@@ -189,10 +189,6 @@ Polymer({
               <div class="flexchild">ID</div>
               <div class="flexchild">[[network.id]]</div>
             </div>
-            <div class="info-item flex-horizontal-with-ratios">
-              <div class="flexchild">Subnets</div>
-              <div class="flexchild">[[subnets.length]]</div>
-            </div>
             <div
               hidden$="[[!network.status]]"
               class="info-item flex-horizontal-with-ratios"
@@ -200,19 +196,6 @@ Polymer({
               <div class="flexchild">Status</div>
               <div class="flexchild">[[network.status]]</div>
             </div>
-          </div>
-        </div>
-      </paper-material>
-      <paper-material hidden$="[[!hasSubnets]]">
-        <h4 class="id">Subnets</h4>
-        <div class="info-table">
-          <div class="info-body">
-            <template is="dom-repeat" items="{{subnets}}" as="subnet">
-              <subnet-item
-                subnet="[[subnet]]"
-                itemindex="{{index}}"
-              ></subnet-item>
-            </template>
           </div>
         </div>
       </paper-material>
