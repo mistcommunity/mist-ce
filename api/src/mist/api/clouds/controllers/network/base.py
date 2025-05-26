@@ -461,8 +461,6 @@ class BaseNetworkController(BaseController):
         their cloud type. These methods currently are:
 
             `self._list_subnets__fetch_subnets`
-            `self._list_subnets__cidr_range`
-            `self._list_subnets__postparse_subnet`
 
         More private methods may be added in the future. Subclasses that
         require special handling should override this, by default, dummy
@@ -498,18 +496,6 @@ class BaseNetworkController(BaseController):
             except Exception as exc:
                 log.exception("Error finding creation date for %s in %s.\n%r",
                               self.cloud, subnet, exc)
-            # Get the Subnet's CIDR.
-            try:
-                subnet.cidr = self._list_subnets__cidr_range(subnet,
-                                                             libcloud_subnet)
-            except Exception as exc:
-                log.exception('Failed to get the CIDR of %s: %s', subnet, exc)
-
-            # Apply cloud-specific processing.
-            try:
-                self._list_subnets__postparse_subnet(subnet, libcloud_subnet)
-            except Exception as exc:
-                log.exception('Error while post-parsing %s: %s', subnet, exc)
 
             # Ensure JSON-encoding.
             for key, value in subnet.extra.items():
@@ -567,37 +553,6 @@ class BaseNetworkController(BaseController):
         raise NotImplementedError('The BaseNetworkController CANNOT perform '
                                   'subnet listings due to cloud-specific '
                                   'filtering needs.')
-
-    def _list_subnets__cidr_range(self, subnet, libcloud_subnet):
-        """Returns the subnet's IP range in CIDR notation.
-
-        This method is meant to be called internally by `self.list_subnets` in
-        order to return the subnet's CIDR.
-
-        Subclasses MAY override this method.
-
-        :param subnet: A subnet mongoengine model. The model may not have yet
-                       been saved in the database.
-        :param libcloud_subnet: A libcloud subnet object.
-        """
-        return libcloud_subnet.cidr
-
-    def _list_subnets__postparse_subnet(self, subnet, libcloud_subnet):
-        """Parses a libcloud network object on behalf of `self.list_subnets`.
-
-        Any subclass that needs to perform custom parsing of a subnet object
-        returned by libcloud SHOULD override this private method.
-
-        This method is expected to edit the subnet objects in place and not
-        return anything.
-
-        Subclasses MAY override this method.
-
-        :param subnet: A subnet mongoengine model. The model may not have yet
-                       been saved in the database.
-        :param libcloud_subnet: A libcloud subnet object.
-        """
-        return
 
     def _list_subnets__subnet_creation_date(self, libcloud_subnet):
         return libcloud_subnet.extra.get('created_at')

@@ -72,9 +72,6 @@ class AzureArmNetworkController(BaseNetworkController):
                                  network.name, '', network.extra)
         return self.cloud.ctl.compute.connection.ex_list_subnets(l_network)
 
-    def _list_subnets__cidr_range(self, subnet, libcloud_subnet):
-        return subnet.extra.pop('addressPrefix')
-
     def _get_libcloud_subnet(self, subnet):
         networks = self.cloud.ctl.compute.connection.ex_list_networks()
         network = None
@@ -116,12 +113,6 @@ class AmazonNetworkController(BaseNetworkController):
     def _list_subnets__fetch_subnets(self, network):
         kwargs = {'filters': {'vpc-id': network.external_id}}
         return self.cloud.ctl.compute.connection.ex_list_subnets(**kwargs)
-
-    def _list_subnets__cidr_range(self, subnet, libcloud_subnet):
-        return subnet.extra.pop('cidr_block')
-
-    def _list_subnets__postparse_subnet(self, subnet, libcloud_subnet):
-        subnet.availability_zone = libcloud_subnet.extra.pop('zone')
 
     def _delete_network(self, network, libcloud_network):
         self.cloud.ctl.compute.connection.ex_delete_network(libcloud_network)
@@ -173,20 +164,6 @@ class GoogleNetworkController(BaseNetworkController):
         filter_expression = 'network eq %s' % network.extra.get('selfLink')
         return self.cloud.ctl.compute.connection.ex_list_subnetworks(
             filter_expression=filter_expression)
-
-    def _list_subnets__postparse_subnet(self, subnet, libcloud_subnet):
-        # Replace `GCERegion` object with the region's name.
-        if hasattr(libcloud_subnet, 'region'):
-            region = libcloud_subnet.region.name
-        else:
-            try:
-                region = subnet.extra['region']
-                region = region.split('regions/')[-1]
-            except (KeyError, IndexError):
-                region = ''
-                log.error('Failed to extract region name for %s', subnet)
-        if region:
-            subnet.region = region
 
     def _get_libcloud_network(self, network):
         return self.cloud.ctl.compute.connection.ex_get_network(network.name)
@@ -248,16 +225,6 @@ class OpenStackNetworkController(BaseNetworkController):
             }
         }
         return self.cloud.ctl.compute.connection.ex_list_subnets(**kwargs)
-
-    def _list_subnets__postparse_subnet(self, subnet, libcloud_subnet):
-        for field in subnet._subnet_specific_fields:
-            if hasattr(libcloud_subnet, field):
-                value = getattr(libcloud_subnet, field)
-            else:
-                log.error('Failed to get value for "%s" for subnet'
-                          ' "%s" (%s)', field, subnet.name, subnet.id)
-                continue
-            setattr(subnet, field, value)
 
     def _delete_network(self, network, libcloud_network):
         self.cloud.ctl.compute.connection.ex_delete_network(libcloud_network)
@@ -431,12 +398,6 @@ class AlibabaNetworkController(BaseNetworkController):
         }
         return self.cloud.ctl.compute.connection.ex_list_switches(
             ex_filters=params)
-
-    def _list_subnets__cidr_range(self, subnet, libcloud_subnet):
-        return libcloud_subnet.cidr_block
-
-    def _list_subnets__postparse_subnet(self, subnet, libcloud_subnet):
-        subnet.availability_zone = libcloud_subnet.extra.pop('zone_id')
 
     def _delete_network(self, network, libcloud_network):
         # Network's security groups need to be deleted first
