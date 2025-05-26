@@ -32,7 +32,6 @@ __all__ = [
     "LinodeCloud",
     "RackSpaceCloud",
     "SoftLayerCloud",
-    "AzureCloud",
     "AzureArmCloud",
     "GoogleCloud",
     "HostVirtualCloud",
@@ -590,16 +589,6 @@ class SoftLayerCloud(Cloud):
 
     _private_fields = ('apikey', )
     _controller_cls = controllers.SoftLayerMainController
-
-
-class AzureCloud(Cloud):
-
-    subscription_id = me.EmbeddedDocumentField(SecretValue, required=True)
-    certificate = me.EmbeddedDocumentField(SecretValue, required=True)
-
-    _private_fields = ('subscription_id', 'certificate', )
-    _controller_cls = controllers.AzureMainController
-
 
 class AzureArmCloud(Cloud):
 
