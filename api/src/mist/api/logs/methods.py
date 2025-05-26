@@ -512,6 +512,9 @@ def get_stories(story_type='', owner_id='', user_id='', sort_order=-1, limit=0,
 
     # Process returned stories.
     def _on_stories_callback(response):
+        if not response.get("aggregations"):
+            log.warning("No aggregations found in Elasticsearch response")
+            return []
         return process_stories(
             buckets=response["aggregations"]["stories"]["buckets"],
             callback=callback, type=story_type
