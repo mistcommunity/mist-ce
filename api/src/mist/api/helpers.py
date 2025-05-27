@@ -1059,7 +1059,6 @@ def logging_view_decorator(func):
             provider = params.get('provider')
             censor = {'ec2': 'api_secret',
                       'rackspace': 'api_key',
-                      'softlayer': 'api_key',
                       'onapp': 'api_key',
                       'digitalocean': 'token',
                       'gce': 'private_key',

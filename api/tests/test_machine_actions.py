@@ -46,11 +46,6 @@ def test_create_machine_list_machines(org, cloud, key,
     flag = False
     while time() < timeout:
         machines = cloud.ctl.list_machines()
-
-        # # cause softlayer add .mist.api at the end of the machine_name
-        # if cloud.__class__.__name__[:-5].lower() == 'softlayer':
-        #     machine_name += '.mist.api'
-
         for m in machines:
             if m['machine_id'] == machine_id:
                 print("****success, machine exists in list_machines")

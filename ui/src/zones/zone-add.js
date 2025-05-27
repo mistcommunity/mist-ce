@@ -400,57 +400,6 @@ Polymer({
             required: true,
           },
         ],
-        SoftLayer: [
-          {
-            name: 'domain',
-            label: 'Domain *',
-            type: 'text',
-            value: '',
-            defaultValue: '',
-            placeholder: '',
-            pattern: '([a-zA-Z0-9-]{2,64}[.]{1})+[a-zA-Z]{2,64}[.]{0,1}',
-            errorMessage: "Please enter zone's domain",
-            helptext:
-              'Please provide the domain for the DNS zone you want to create (e.g. example.com ).',
-            show: true,
-            required: true,
-          },
-          {
-            name: 'type',
-            label: 'Type',
-            type: 'dropdown',
-            value: 'master',
-            defaultValue: 'master',
-            placeholder: '',
-            helptext:
-              'Select whether this zone will be used as a master DNS Zone or a Slave DNS zone.',
-            show: true,
-            required: false,
-            options: [
-              {
-                title: 'master',
-                val: 'master',
-              },
-              {
-                title: 'slave',
-                val: 'slave',
-              },
-            ],
-          },
-          {
-            name: 'ttl',
-            label: 'TTL',
-            type: 'text',
-            value: 0,
-            defaultValue: 0,
-            placeholder: '',
-            pattern: '[0-9]*',
-            helptext:
-              'Please provide the Time-To-Live value for this DNS Zone in seconds. This is often the DNS zone information will be refreshed in the DNS servers.',
-            show: true,
-            required: false,
-          },
-        ],
         Vultr: [
           {
             name: 'domain',
@@ -507,7 +456,6 @@ Polymer({
           'digitalocean',
           'linode',
           'rackspace',
-          'softlayer',
           'vultr',
         ].indexOf(cloud.provider) > -1 &&
         cloud.enabled &&
@@ -549,11 +497,6 @@ Polymer({
         );
       } else if (selectedCloud.provider === 'rackspace') {
         this.set('fields', this.cloudSpecificFields.RackSpace);
-        [this.cloud] = this.model.cloudsArray.filter(
-          clouda => clouda.id === selectedCloud.id
-        );
-      } else if (selectedCloud.provider === 'softlayer') {
-        this.set('fields', this.cloudSpecificFields.SoftLayer);
         [this.cloud] = this.model.cloudsArray.filter(
           clouda => clouda.id === selectedCloud.id
         );
@@ -599,7 +542,6 @@ Polymer({
         this.selectedCloud.provider === 'gce' ||
         this.selectedCloud.provider === 'digitalocean' ||
         this.selectedCloud.provider === 'rackspace' ||
-        this.selectedCloud.provider === 'softlayer' ||
         this.selectedCloud.provider === 'vultr'
       ) {
         const type = this.fields.findIndex(
@@ -613,7 +555,6 @@ Polymer({
         this.selectedCloud.provider === 'gce' ||
         this.selectedCloud.provider === 'linode' ||
         this.selectedCloud.provider === 'rackspace' ||
-        this.selectedCloud.provider === 'softlayer' ||
         this.selectedCloud.provider === 'vultr'
       ) {
         const type = this.fields.findIndex(
@@ -625,7 +566,6 @@ Polymer({
       if (
         this.selectedCloud.provider === 'ec2' ||
         this.selectedCloud.provider === 'gce' ||
-        this.selectedCloud.provider === 'softlayer' ||
         this.selectedCloud.provider === 'vultr'
       ) {
         const ttl = this.fields.findIndex(field => field.name === 'ttl', this);

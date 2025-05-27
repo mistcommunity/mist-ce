@@ -354,58 +354,6 @@ PROVIDERS.push({
   ],
 });
 
-// SOFTLAYER - IBM
-PROVIDERS.push({
-  title: 'IBM Cloud',
-  val: 'softlayer',
-  className: 'provider-softlayer',
-  options: [
-    {
-      name: 'name',
-      label: 'Name *',
-      type: 'text',
-      value: 'IBM Cloud',
-      defaultValue: 'IBM Cloud',
-      show: true,
-      required: true,
-      errorMessage: 'Please enter a name for the cloud',
-    },
-    {
-      name: 'username',
-      label: 'Username *',
-      type: 'text',
-      value: '',
-      defaultValue: '',
-      show: true,
-      required: true,
-      errorMessage: 'Please enter username',
-      helptext: '',
-    },
-    {
-      name: 'apikey',
-      label: 'API Key *',
-      type: 'password',
-      value: '',
-      defaultValue: '',
-      show: true,
-      required: true,
-      errorMessage: 'Please enter API Key',
-      helptext: '',
-      helpHref: 'http://docs.mist.io/article/30-adding-softlayer',
-    },
-    {
-      name: 'dns_enabled',
-      label: 'Enable DNS support',
-      type: 'toggle',
-      value: false,
-      defaultValue: false,
-      show: true,
-      required: false,
-      helptext: '',
-    },
-  ],
-});
-
 // DIGITALOCEAN
 PROVIDERS.push({
   title: 'DigitalOcean',

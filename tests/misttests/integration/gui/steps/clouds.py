@@ -48,15 +48,6 @@ def set_rackspace_creds(context):
     ''' % (region, username, api_key))
 
 
-def set_ibm_clouds_creds(context):
-    username = safe_get_var('clouds/ibm', 'username', context.mist_config['CREDENTIALS']['SOFTLAYER']['username'])
-    api_key = safe_get_var('clouds/ibm', 'api_key', context.mist_config['CREDENTIALS']['SOFTLAYER']['api_key'])
-    context.execute_steps('''
-        Then I set the value "%s" to field "Username" in the "cloud" add form
-        Then I set the value "%s" to field "API Key" in the "cloud" add form
-    ''' % (username, api_key))
-
-
 def set_aws_creds(context):
     api_key = safe_get_var('clouds/aws', 'apikey', context.mist_config['CREDENTIALS']['EC2']['apikey'])
     api_secret = safe_get_var('clouds/aws', 'apisecret', context.mist_config['CREDENTIALS']['EC2']['apisecret'])

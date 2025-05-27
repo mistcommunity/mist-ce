@@ -47,12 +47,6 @@ providers = {
         "disk":12576,
         "image": "146"
     },
-    "SoftLayer": {
-        "size": "0",
-        "location": "ams01",
-        "disk": 25,
-        "image": "UBUNTU_LATEST_64"
-    },
     "AWS": {
         "size": "m1.small",
         "location": "ap-northeast-1",
@@ -168,11 +162,6 @@ def add_cloud(provider):
                                        ca_cert_file=safe_get_var('dockerhosts/godzilla', 'ca', config.CREDENTIALS['DOCKER']['ca']),
                                        key_file=safe_get_var('dockerhosts/godzilla', 'key', config.CREDENTIALS['DOCKER']['key']),
                                        cert_file=safe_get_var('dockerhosts/godzilla', 'cert', config.CREDENTIALS['DOCKER']['cert'])).post()
-
-        elif provider == "SoftLayer":
-            response = mist_api_v1.add_cloud(name=provider, provider= 'softlayer', api_token=config.MIST_API_TOKEN,
-                                       username=safe_get_var('clouds/ibm', 'username', config.CREDENTIALS['SOFTLAYER']['username']),
-                                       api_key=safe_get_var('clouds/ibm', 'api_key', config.CREDENTIALS['SOFTLAYER']['api_key'])).post()
 
         elif provider == "GCE":
             response = mist_api_v1.add_cloud(name='GCE', provider= 'gce', api_token=config.MIST_API_TOKEN,
@@ -296,7 +285,7 @@ def create_machine(cloud_id, provider):
 
 def main():
     for provider in providers:
-        if provider in ['AWS', 'DigitalOcean', 'Linode', 'Azure', 'SoftLayer', 'GCE', 'Rackspace', 'Equinix Metal', 'Vultr', 'Azure_ARM', 'CloudSigma']:
+        if provider in ['AWS', 'DigitalOcean', 'Linode', 'Azure', 'GCE', 'Rackspace', 'Equinix Metal', 'Vultr', 'Azure_ARM', 'CloudSigma']:
             #add the provider if not there
             cloud_id = add_cloud(provider)
 

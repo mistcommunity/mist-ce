@@ -40,7 +40,7 @@ setup(
     url='https://mist.io',
     keywords=('web cloud server management monitoring automation mobile '
               'libcloud pyramid amazon aws rackspace openstack linode '
-              'softlayer digitalocean gce'),
+              'digitalocean gce'),
     packages=find_packages(BASEDIR),
     namespace_packages=['mist'],
     include_package_data=True,

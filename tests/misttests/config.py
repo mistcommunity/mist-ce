@@ -312,7 +312,6 @@ DEFAULT_CREDENTIALS = {
     'PACKET_2': {'apikey': ''},
     'VSPHERE': {'username': '', 'password': '', 'ca_cert': '', 'host': '' },
     'RACKSPACE': {'apikey': '', 'region': '', 'username': ''},
-    'SOFTLAYER': {'api_key': '', 'username': ''},
     'VULTR': {'apikey': ''},
     'ALIYUN': {'apikey': '', 'apisecret': ''},
     'DOCKER_MONITORING':{'host': '', 'port': ''},

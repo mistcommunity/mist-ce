@@ -150,13 +150,6 @@ class RackSpaceMainController(BaseMainController):
                 kwargs['apikey'] = cloud.apikey.value
 
 
-class SoftLayerMainController(BaseMainController):
-
-    provider = 'softlayer'
-    ComputeController = compute_ctls.SoftLayerComputeController
-    DnsController = dns_ctls.SoftLayerDNSController
-
-
 class AzureArmMainController(BaseMainController):
 
     provider = 'azure_arm'

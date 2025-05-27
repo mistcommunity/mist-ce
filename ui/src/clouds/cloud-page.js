@@ -857,7 +857,6 @@ Polymer({
         'digitalocean',
         'linode',
         'rackspace',
-        'softlayer',
         'vultr',
       ].indexOf(provider) > -1
     );

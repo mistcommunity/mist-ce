@@ -337,7 +337,6 @@ Polymer({
           'linode',
           'equinixmetal',
           'rackspace',
-          'softlayer',
           'aliyun_ecs',
           'vultr',
           'maxihost',

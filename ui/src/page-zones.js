@@ -166,7 +166,6 @@ export default class PageZones extends mixinBehaviors(
       digitalocean: 'DigitalOcean',
       linode: 'Linode',
       vultr: 'Vultr',
-      softlayer: 'SoftLayer',
     };
     return {
       domain: {
