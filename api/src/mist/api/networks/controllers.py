@@ -12,23 +12,6 @@ class NetworkController(object):
         self.network = network
         self.cloud = network.cloud
 
-    def create(self, **kwargs):
-        """Create `self.network`."""
-        return self.cloud.ctl.network.create_network(self.network, **kwargs)
-
-    def rename(self, name):
-        """Rename `self.network`."""
-        return self.cloud.ctl.network.rename_network(self.network, name)
-
-    def delete(self):
-        """Delete `self.network`."""
-        return self.cloud.ctl.network.delete_network(self.network)
-
-    def list_subnets(self):
-        """Returns a list of subnets in the current network."""
-        return self.cloud.ctl.network.list_subnets(self.network)
-
-
 class SubnetController(object):
     def __init__(self, subnet):
         """Initialize the `SubnetController` given a subnet.
@@ -42,15 +25,3 @@ class SubnetController(object):
         """
         self.subnet = subnet
         self.cloud = subnet.network.cloud
-
-    def create(self, **kwargs):
-        """Create `self.subnet`."""
-        return self.cloud.ctl.network.create_subnet(self.subnet, **kwargs)
-
-    def rename(self, name):
-        """Rename `self.subnet`."""
-        return self.cloud.ctl.network.rename_network(self.subnet, name)
-
-    def delete(self):
-        """Delete `self.subnet`."""
-        return self.cloud.ctl.network.delete_subnet(self.subnet)

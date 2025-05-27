@@ -3145,49 +3145,6 @@ paths:
       - networks
       x-openapi-router-controller: mist_api_v2.controllers.networks_controller
   /api/v2/networks/{network}:
-    delete:
-      description: Delete target network
-      operationId: delete_network
-      parameters:
-      - example: my-network
-        explode: false
-        in: path
-        name: network
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: Cloud the target network belongs to
-        example: my-cloud
-        explode: true
-        in: query
-        name: cloud
-        required: true
-        schema:
-          type: string
-        style: form
-      responses:
-        "200":
-          description: Network deleted successfully
-        "401":
-          description: Authentication failed
-        "403":
-          description: You are not authorized to perform this action
-        "404":
-          description: Network not found
-      security:
-      - ApiKeyAuth:
-        - read:cloud
-        - read:network
-        - remove:network
-      - CookieAuth:
-        - read:cloud
-        - read:network
-        - remove:network
-      summary: Delete network
-      tags:
-      - networks
-      x-openapi-router-controller: mist_api_v2.controllers.networks_controller
     get:
       description: Get details about target network
       operationId: get_network
@@ -3270,45 +3227,6 @@ paths:
       - tags
       - owned_by
       - created_by
-      x-openapi-router-controller: mist_api_v2.controllers.networks_controller
-    put:
-      description: Edit target network
-      operationId: edit_network
-      parameters:
-      - example: my-network
-        explode: false
-        in: path
-        name: network
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: New network name
-        example: my-renamed-network
-        explode: true
-        in: query
-        name: name
-        required: false
-        schema:
-          type: string
-        style: form
-      responses:
-        "200":
-          description: Network successfully updated
-        "401":
-          description: Authentication failed
-        "403":
-          description: You are not authorized to perform this action
-        "404":
-          description: Network not found
-      security:
-      - ApiKeyAuth:
-        - edit:network
-      - CookieAuth:
-        - edit:network
-      summary: Edit network
-      tags:
-      - networks
       x-openapi-router-controller: mist_api_v2.controllers.networks_controller
   /api/v2/orgs:
     get:

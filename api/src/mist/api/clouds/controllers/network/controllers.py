@@ -86,12 +86,6 @@ class AzureArmNetworkController(BaseNetworkController):
         raise SubnetNotFoundError('Subnet %s with external_id \
             %s' % (subnet.name, subnet.external_id))
 
-    def _delete_network(self, network, libcloud_network):
-        raise MistNotImplementedError()
-
-    def _delete_subnet(self, subnet, libcloud_subnet):
-        raise MistNotImplementedError()
-
 
 class AmazonNetworkController(BaseNetworkController):
 
@@ -109,24 +103,6 @@ class AmazonNetworkController(BaseNetworkController):
                                           r_groups=[]):
         tenancy = libcloud_network.extra.pop('instance_tenancy')
         network.instance_tenancy = tenancy
-
-    def _list_subnets__fetch_subnets(self, network):
-        kwargs = {'filters': {'vpc-id': network.external_id}}
-        return self.cloud.ctl.compute.connection.ex_list_subnets(**kwargs)
-
-    def _delete_network(self, network, libcloud_network):
-        self.cloud.ctl.compute.connection.ex_delete_network(libcloud_network)
-
-    def _delete_subnet(self, subnet, libcloud_subnet):
-        self.cloud.ctl.compute.connection.ex_delete_subnet(libcloud_subnet)
-
-    def _rename_network(self, libcloud_network, name):
-        return self.cloud.ctl.compute.connection.ex_rename_node(
-            libcloud_network, name)
-
-    def _rename_subnet(self, libcloud_subnet, name):
-        return self.cloud.ctl.compute.connection.ex_rename_node(
-            libcloud_subnet, name)
 
     def _get_libcloud_network(self, network):
         kwargs = {'network_ids': [network.external_id]}
@@ -160,43 +136,6 @@ class GoogleNetworkController(BaseNetworkController):
                                           r_groups=[]):
         network.mode = libcloud_network.mode
 
-    def _list_subnets__fetch_subnets(self, network):
-        filter_expression = 'network eq %s' % network.extra.get('selfLink')
-        return self.cloud.ctl.compute.connection.ex_list_subnetworks(
-            filter_expression=filter_expression)
-
-    def _get_libcloud_network(self, network):
-        return self.cloud.ctl.compute.connection.ex_get_network(network.name)
-
-    def _get_libcloud_subnet(self, subnet):
-        kwargs = {'name': subnet.name,
-                  'region': subnet.region}
-        return self.cloud.ctl.compute.connection.ex_get_subnetwork(**kwargs)
-
-    def delete_network(self, network):
-        # Subnets of Google automatic networks cannot be deleted directly
-        if network.mode == 'custom':
-            return super().delete_network(network)
-
-        assert network.cloud == self.cloud
-
-        libcloud_network = self._get_libcloud_network(network)
-        try:
-            self._delete_network(network, libcloud_network)
-        except Exception:
-            log.error('Could not delete network %s', network)
-            raise
-
-        try:
-            self.list_networks()
-        except (PeriodicTaskLockTakenError,
-                PeriodicTaskTooRecentLastRun):
-            log.error('Failed to list networks after network deletion '
-                      'for Google cloud: %s', self.cloud.id)
-
-        from mist.api.poller.models import ListNetworksPollingSchedule
-        ListNetworksPollingSchedule.add(cloud=self.cloud, interval=10, ttl=120)
-
 
 class OpenStackNetworkController(BaseNetworkController):
 
@@ -216,21 +155,6 @@ class OpenStackNetworkController(BaseNetworkController):
                               '"%s" (%s)', field, network.name, network.id)
                     continue
             setattr(network, field, value)
-
-    def _list_subnets__fetch_subnets(self, network):
-        kwargs = {
-            'filters': {
-                'network_id': network.external_id,
-                'ip_version': 4,
-            }
-        }
-        return self.cloud.ctl.compute.connection.ex_list_subnets(**kwargs)
-
-    def _delete_network(self, network, libcloud_network):
-        self.cloud.ctl.compute.connection.ex_delete_network(libcloud_network)
-
-    def _delete_subnet(self, subnet, libcloud_subnet):
-        self.cloud.ctl.compute.connection.ex_delete_subnet(libcloud_subnet.id)
 
 
 class LibvirtNetworkController(BaseNetworkController):
@@ -282,15 +206,6 @@ class LibvirtNetworkController(BaseNetworkController):
 
         network.location = location
 
-    def _list_subnets__fetch_subnets(self, network):
-        return []
-
-    def _delete_network(self, network, libcloud_network):
-        raise MistNotImplementedError()
-
-    def _delete_subnet(self, subnet, libcloud_subnet):
-        raise MistNotImplementedError()
-
     def _list_vnfs(self, host=None):
         from mist.api.machines.models import Machine
         from mist.api.clouds.models import CloudLocation
@@ -333,53 +248,11 @@ class LXDNetworkController(BaseNetworkController):
     Network controller for LXD
     """
 
-    def _create_network__prepare_args(self, kwargs):
-
-        if "description" not in kwargs:
-            kwargs["description"] = "No network description"
-
-        # do not expect that kwargs
-        # have the configuration wrapped
-        # this is the default config
-        kwargs["config"] = {"ipv4.address": "none",
-                            "ipv6.address": "none",
-                            "ipv6.nat": "false"}
-
-        if "cidr" in kwargs:
-            kwargs["config"]["ipv4.address"] = kwargs["cidr"]
-
-        if "ipv6.address" in kwargs:
-            kwargs["config"]["ipv6.address"] = kwargs["ipv6.address"]
-
-        if "ipv6.nat" in kwargs:
-            kwargs["config"]["ipv6.nat"] = kwargs["ipv6.nat"]
-
-    def _delete_network(self, network, libcloud_network):
-        conn = self.cloud.ctl.compute.connection
-        conn.ex_delete_network(name=libcloud_network.name)
-
-    def _list_subnets__fetch_subnets(self, network):
-        return []
-
     def _list_networks__cidr_range(self, network, net):
         return net.config.get("ipv4.address")
 
 
 class AlibabaNetworkController(BaseNetworkController):
-
-    def _create_network__prepare_args(self, kwargs):
-        rename_kwargs(kwargs, 'cidr', 'cidr_block')
-        # workaround to avoid create_network failure
-        kwargs['only_id'] = False
-
-    def _create_subnet__prepare_args(self, subnet, kwargs):
-        rename_kwargs(kwargs, 'availability_zone', 'zone')
-        kwargs['vpc'] = subnet.network.network_id
-        # workaround to avoid create_subnet failure
-        kwargs['only_id'] = False
-
-    def _create_subnet(self, kwargs):
-        return self.cloud.ctl.compute.connection.ex_create_switch(**kwargs)
 
     def _list_networks__cidr_range(self, network, libcloud_network):
         return libcloud_network.cidr_block
@@ -387,38 +260,6 @@ class AlibabaNetworkController(BaseNetworkController):
     def _list_networks__postparse_network(self, network, libcloud_network,
                                           r_groups=[]):
         network.description = libcloud_network.extra.pop('description', None)
-
-    def _list_subnets__fetch_subnets(self, network):
-        params = {
-            'VpcId': network.network_id
-        }
-        return self.cloud.ctl.compute.connection.ex_list_switches(
-            ex_filters=params)
-
-    def _delete_network(self, network, libcloud_network):
-        # Network's security groups need to be deleted first
-        params = {
-            'VpcId': libcloud_network.id,
-        }
-        groups = self.cloud.ctl.compute.connection.ex_list_security_groups(
-            ex_filters=params
-        )
-        for group in groups:
-            self.cloud.ctl.compute.connection.ex_delete_security_group_by_id(
-                group_id=group.id
-            )
-        self.cloud.ctl.compute.connection.ex_destroy_network(libcloud_network)
-
-    def _delete_subnet(self, subnet, libcloud_subnet):
-        self.cloud.ctl.compute.connection.ex_destroy_switch(libcloud_subnet)
-
-    def _get_libcloud_subnet(self, subnet):
-        subnets = self.cloud.ctl.compute.connection.ex_list_switches()
-        for sub in subnets:
-            if sub.id == subnet.subnet_id:
-                return sub
-        raise SubnetNotFoundError(
-            f'Subnet {subnet.name} with subnet_id {subnet.subnet_id}')
 
 
 class VultrNetworkController(BaseNetworkController):
@@ -442,18 +283,3 @@ class VultrNetworkController(BaseNetworkController):
             location = None
 
         network.location = location
-
-    def _list_subnets__fetch_subnets(self, network):
-        return []
-
-    def _delete_network(self, network, libcloud_network):
-        return self.cloud.ctl.compute.connection.ex_destroy_network(
-            libcloud_network)
-
-    def _create_network__prepare_args(self, kwargs):
-        if 'location' not in kwargs:
-            raise RequiredParameterMissingError('location')
-        rename_kwargs(kwargs, 'cidr', 'cidr_block')
-        rename_kwargs(kwargs, 'name', 'description')
-
-        kwargs['location'] = kwargs['location'].external_id

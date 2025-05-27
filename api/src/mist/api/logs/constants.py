@@ -83,8 +83,6 @@ CLOSES_INCIDENT = (
     'remove_cloud',
     'delete_script',
     'delete_volume',
-    'delete_subnet',
-    'delete_network',
     'delete_schedule',
     'delete_dns_zone',
     'delete_dns_record',
