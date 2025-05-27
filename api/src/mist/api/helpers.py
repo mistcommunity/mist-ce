@@ -1065,7 +1065,6 @@ def logging_view_decorator(func):
                       'azure': 'certificate',
                       'linode': 'api_key',
                       'docker': 'auth_password',
-                      'maxihost': 'token',
                       'openstack': 'password',
                       'vexxhost': 'password', }.get(provider)
             if censor and censor in params:

@@ -856,19 +856,6 @@ Polymer({
             );
             return checkPerm !== false && l.location_type !== 'region';
           });
-          // disable maxihost locations that support no sizes
-          if (this.model.clouds[cloudId].provider === 'maxihost') {
-            const sizeLocations = this._toArray(
-              this.model.clouds[this.selectedCloud].sizes
-            )
-              .map(x => x.extra.regions)
-              .join();
-            locations.forEach(l => {
-              if (sizeLocations.indexOf(l.external_id) === -1) {
-                l.disabled = true;
-              }
-            });
-          }
           if (
             this.model.clouds[cloudId].provider === 'openstack' ||
             this.model.clouds[cloudId].provider === 'vexxhost'
@@ -1443,17 +1430,6 @@ Polymer({
           }
         }
         this.set(`machineFields.${subid}.options`, subnets);
-      }
-
-      // if it is maxihost and location changed
-      if (this.model.clouds[this.selectedCloud].provider === 'maxihost') {
-        if (
-          this.get(changeRecord.path.replace('.value', '')).name ===
-            'location' &&
-          changeRecord.value.length
-        ) {
-          this._updateMaxihostSizes(changeRecord.value);
-        }
       }
 
       // if it is azure arm update storage accounts & resource groups
@@ -2214,31 +2190,6 @@ Polymer({
           .replace(/[^a-zA-Z0-9]+/g, '')
           .slice(0, 19)}disks`
       );
-  },
-
-  _updateMaxihostSizes(locationId) {
-    // var locationInd = this._fieldIndexByName('location');
-    const sizeInd = this._fieldIndexByName('size');
-    const locationExternalId = this.model.clouds[this.selectedCloud].locations[
-      locationId
-    ].external_id;
-
-    const allSizes =
-      this._toArray(this.model.clouds[this.selectedCloud].sizes) || [];
-    const filteredSizes = allSizes.filter(
-      s => s.extra.regions.indexOf(locationExternalId) > -1
-    );
-    this.set(`machineFields.${sizeInd}.options`, filteredSizes);
-    // clear previous value if not in filtered sizes
-    if (
-      this.machineFields[sizeInd].value !== '' &&
-      filteredSizes
-        .map(x => x.id)
-        .indexOf(this.machineFields[sizeInd].value) === -1
-    ) {
-      this.set(`machineFields.${sizeInd}.value`, '');
-    }
-    // console.log('maxihost ', locationExternalId, filteredSizes.map(x=>x.extra.regions));
   },
 
   _updateGceSubnets(networkId) {

@@ -1813,25 +1813,6 @@ PROVIDERS = {
             'storage': True,
         }
     },
-    'maxihost': {
-        'name': 'Maxihost',
-        'aliases': [],
-        'driver': 'maxihost',
-        'category': 'public cloud',
-        'features': {
-            'compute': True,
-            'console': False,
-            'provision': {
-                'location': True,
-                'restrictions': {
-                    'size-image-restriction': False,
-                    'location-size-restriction': False,
-                    'location-image-restriction': False,
-                },
-            },
-            'metal': True,
-        }
-    },
     'vultr': {
         'name': 'Vultr',
         'aliases': [],
@@ -2600,12 +2581,6 @@ SUPPORTED_PROVIDERS = [
     {
         'title': 'EquinixMetal',
         'provider': Provider.EQUINIXMETAL,
-        'regions': []
-    },
-    # Maxihost
-    {
-        'title': 'Maxihost',
-        'provider': Provider.MAXIHOST,
         'regions': []
     },
     # KubeVirt

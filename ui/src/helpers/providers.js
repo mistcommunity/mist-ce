@@ -887,36 +887,6 @@ PROVIDERS.push({
   ],
 });
 
-// MAXIHOST
-PROVIDERS.push({
-  title: 'Maxihost',
-  val: 'maxihost',
-  className: 'provider-maxihost',
-  options: [
-    {
-      name: 'name',
-      label: 'Name *',
-      type: 'text',
-      value: 'Maxihost',
-      defaultValue: 'Maxihost',
-      show: true,
-      required: true,
-      errorMessage: 'Please enter a name for the cloud',
-    },
-    {
-      name: 'token',
-      label: 'API token *',
-      type: 'text',
-      value: '',
-      defaultValue: '',
-      show: true,
-      required: true,
-      errorMessage: 'Please enter the API key',
-      helptext: '',
-    },
-  ],
-});
-
 // KVM
 PROVIDERS.push({
   title: 'KVM',

@@ -231,12 +231,6 @@ def set_second_packet_creds(context):
                           '"cloud" edit form' % api_key)
 
 
-def set_maxihost_creds(context):
-    api_key = safe_get_var('clouds/maxihost', 'token', context.mist_config['CREDENTIALS']['MAXIHOST']['token'])
-    context.execute_steps('''
-                Then I set the value "%s" to field "API token" in the "cloud" add form
-            ''' % api_key)
-
 def set_kubevirt_creds(context):
     context.execute_steps('''
                 Then I set the value "%s" to field "Hostname or IP" in the "cloud" add form
@@ -319,7 +313,6 @@ cloud_creds_dict = {
     "vmware vsphere": set_vsphere_creds,
     "onapp": set_onapp_creds,
     "alibaba cloud": set_aliyun_creds,
-    "maxihost": set_maxihost_creds,
     "kubevirt": set_kubevirt_creds,
     "lxd": set_lxd_creds,
     "g8": set_g8_creds,

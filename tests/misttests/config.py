@@ -316,7 +316,6 @@ DEFAULT_CREDENTIALS = {
     'ALIYUN': {'apikey': '', 'apisecret': ''},
     'DOCKER_MONITORING':{'host': '', 'port': ''},
     'ONAPP':{'username':'', 'apikey':'', 'host':'', 'verify_ssl': False},
-    'MAXIHOST': {'token': ''},
     'KUBEVIRT': {'host': '', 'tlsCaCert': '', 'cert': '', 'key': '', 'port': ''},
     'LXD': {'host': '', 'tlsKey': '', 'tlsCert': '', 'ca': ''},
     'GIG_G8': {'api_key': '', 'url': '', 'user_id': ''},

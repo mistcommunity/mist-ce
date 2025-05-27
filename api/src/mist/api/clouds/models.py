@@ -28,7 +28,6 @@ __all__ = [
     "AmazonCloud",
     "AlibabaCloud",
     "DigitalOceanCloud",
-    "MaxihostCloud",
     "LinodeCloud",
     "RackSpaceCloud",
     "AzureArmCloud",
@@ -554,14 +553,6 @@ class DigitalOceanCloud(Cloud):
 
     _private_fields = ('token', )
     _controller_cls = controllers.DigitalOceanMainController
-
-
-class MaxihostCloud(Cloud):
-
-    token = me.EmbeddedDocumentField(SecretValue, required=True)
-
-    _private_fields = ('token', )
-    _controller_cls = controllers.MaxihostMainController
 
 
 class LinodeCloud(Cloud):

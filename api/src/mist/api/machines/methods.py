@@ -103,7 +103,7 @@ def machine_name_validator(provider, name):
                 "characters must be a dash, lowercase letter, or digit, "
                 "except the last character, which cannot be a dash."
             )
-    elif provider in [Provider.DIGITAL_OCEAN.value, Provider.MAXIHOST.value]:
+    elif provider in [Provider.DIGITAL_OCEAN.value]:
         if not re.search(r'^[0-9a-zA-Z]+[0-9a-zA-Z-.]{0,}[0-9a-zA-Z]+$', name):
             raise MachineNameValidationError(
                 "machine name may only contain ASCII letters "
@@ -553,10 +553,6 @@ def create_machine(auth_context, cloud_id, key_id, machine_name, location_id,
                                             image, size, location, cloud_init,
                                             cloud, project_id, volumes,
                                             ip_addresses)
-
-    elif cloud.ctl.provider == Provider.MAXIHOST.value:
-        node = _create_machine_maxihost(conn, machine_name, image,
-                                        size, location, public_key)
     elif cloud.ctl.provider == Provider.KUBEVIRT.value:
         network = networks if networks else None
         image = image.id.strip()
@@ -1154,31 +1150,6 @@ def _create_machine_onapp(conn, public_key,
         )
     except Exception as e:
         raise MachineCreationError("OnApp, got exception %s" % e, e)
-
-    return node
-
-
-def _create_machine_maxihost(conn, machine_name, image, size,
-                             location, public_key):
-    key = str(public_key).replace('\n', '')
-    ssh_keys = []
-    server_key = ''
-    keys = conn.list_key_pairs()
-    for k in keys:
-        if key == k.public_key:
-            server_key = k
-            break
-    if not server_key:
-        server_key = conn.create_key_pair(name=machine_name,
-                                          public_key=public_key)
-
-    ssh_keys.append(server_key.fingerprint)
-
-    try:
-        node = conn.create_node(machine_name, size, image,
-                                location, ssh_keys)
-    except ValueError as exc:
-        raise MachineCreationError('Maxihost, exception %s' % exc)
 
     return node
 
