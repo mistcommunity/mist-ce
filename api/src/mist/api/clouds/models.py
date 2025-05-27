@@ -31,7 +31,6 @@ __all__ = [
     "MaxihostCloud",
     "LinodeCloud",
     "RackSpaceCloud",
-    "SoftLayerCloud",
     "AzureArmCloud",
     "GoogleCloud",
     "HostVirtualCloud",
@@ -580,15 +579,6 @@ class RackSpaceCloud(Cloud):
 
     _private_fields = ('apikey', )
     _controller_cls = controllers.RackSpaceMainController
-
-
-class SoftLayerCloud(Cloud):
-
-    username = me.StringField(required=True)
-    apikey = me.EmbeddedDocumentField(SecretValue, required=True)
-
-    _private_fields = ('apikey', )
-    _controller_cls = controllers.SoftLayerMainController
 
 class AzureArmCloud(Cloud):
 

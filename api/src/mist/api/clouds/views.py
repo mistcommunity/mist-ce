@@ -65,7 +65,7 @@ def add_cloud(request):
     apikey:
       type: string
       description: Required for Ec2, Hostvirtual, Linode, \
-      EquinixMetal, Rackspace, OnApp, SoftLayer, Vultr
+      EquinixMetal, Rackspace, OnApp, Vultr
     apisecret:
       type: string
       description: Required for Ec2
@@ -163,7 +163,6 @@ def add_cloud(request):
       - ec2
       - rackspace
       - digitalocean
-      - softlayer
       - gce
       - azure
       - azure_arm
@@ -205,7 +204,7 @@ def add_cloud(request):
     username:
       type: string
       description: Required for Rackspace, OnApp, \
-      SoftLayer, OpenStack, Vcloud, vSphere, CloudSigma
+      OpenStack, Vcloud, vSphere, CloudSigma
     """
     auth_context = auth_context_from_request(request)
     cloud_tags, _ = auth_context.check_perm("cloud", "add", None)

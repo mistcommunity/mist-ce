@@ -214,13 +214,6 @@ def create_machine(request):
     machine_username:
       type: string
       description: Required for Azure_arm
-    bare_metal:
-      description: Needed only by SoftLayer cloud
-      type: boolean
-    billing:
-      description: Needed only by SoftLayer cloud
-      type: string
-      example: "hourly"
     boot:
       description: Required for OnApp
       type: boolean
@@ -240,9 +233,6 @@ def create_machine(request):
     project_id:
       description: ' Needed only by EquinixMetal cloud'
       type: string
-    softlayer_backend_vlan_id:
-      description: 'Specify id of a backend(private) vlan'
-      type: integer
     ssh_port:
       type: integer
       example: 22
@@ -328,11 +318,6 @@ def create_machine(request):
                                               None)
     project_id = params.get('project', None)
     bare_metal = params.get('bare_metal', False)
-    # bare_metal True creates a hardware server in SoftLayer,
-    # while bare_metal False creates a virtual cloud server
-    # hourly True is the default setting for SoftLayer hardware
-    # servers, while False means the server has monthly pricing
-    softlayer_backend_vlan_id = params.get('softlayer_backend_vlan_id', None)
     hourly = params.get('hourly', True)
     sec_group = params.get('security_group', '')
     if isinstance(sec_group, list):
@@ -491,7 +476,6 @@ def create_machine(request):
               'tags': tags,
               'hourly': hourly,
               'schedule': schedule,
-              'softlayer_backend_vlan_id': softlayer_backend_vlan_id,
               'machine_username': machine_username,
               'volumes': volumes,
               'ip_addresses': ip_addresses,

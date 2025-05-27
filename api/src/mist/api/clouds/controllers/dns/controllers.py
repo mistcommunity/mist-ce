@@ -233,19 +233,6 @@ class DigitalOceanDNSController(RackSpaceDNSController):
         kwargs['domain'] = kwargs['domain'].rstrip('.')
 
 
-class SoftLayerDNSController(BaseDNSController):
-    """
-    SoftLayer specific overrides.
-    """
-
-    def _connect(self):
-        return get_driver(Provider.SOFTLAYER)(self.cloud.username,
-                                              self.cloud.apikey.value)
-
-    def _create_zone__prepare_args(self, kwargs):
-        kwargs.pop('type')
-
-
 class VultrDNSController(BaseDNSController):
     """
     Vultr specific overrides.

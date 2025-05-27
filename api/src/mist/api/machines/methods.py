@@ -103,8 +103,6 @@ def machine_name_validator(provider, name):
                 "characters must be a dash, lowercase letter, or digit, "
                 "except the last character, which cannot be a dash."
             )
-    elif provider is Provider.SOFTLAYER.value:
-        pass
     elif provider in [Provider.DIGITAL_OCEAN.value, Provider.MAXIHOST.value]:
         if not re.search(r'^[0-9a-zA-Z]+[0-9a-zA-Z-.]{0,}[0-9a-zA-Z]+$', name):
             raise MachineNameValidationError(
@@ -241,7 +239,7 @@ def create_machine(auth_context, cloud_id, key_id, machine_name, location_id,
                    associate_floating_ip_subnet=None, project_id=None,
                    schedule={}, command=None, tags=None,
                    bare_metal=False, hourly=True,
-                   softlayer_backend_vlan_id=None, machine_username='',
+                   machine_username='',
                    volumes=[], ip_addresses=[], expiration={},
                    sec_groups=None, folder=None, datastore=None, vnfs=[],
                    ephemeral=False, lxd_image_source=None,
@@ -489,13 +487,6 @@ def create_machine(auth_context, cloud_id, key_id, machine_name, location_id,
         node = _create_machine_gce(conn, key_id, private_key, public_key,
                                    machine_name, image, size, location,
                                    networks, subnetwork, volumes, cloud_init)
-    elif cloud.ctl.provider is Provider.SOFTLAYER.value:
-        node = _create_machine_softlayer(
-            conn, key_id, private_key, public_key,
-            machine_name, image, size,
-            location, bare_metal, cloud_init,
-            hourly, softlayer_backend_vlan_id
-        )
     elif cloud.ctl.provider is Provider.ONAPP.value:
         node = _create_machine_onapp(
             conn, public_key,
@@ -1119,54 +1110,6 @@ def _create_machine_ec2(conn, key_name, public_key,
         for volume in ex_volumes:
             conn.attach_volume(
                 node, volume.get('volume'), volume.get('device'))
-
-    return node
-
-
-def _create_machine_softlayer(conn, key_name, private_key, public_key,
-                              machine_name, image, size, location,
-                              bare_metal, cloud_init, hourly,
-                              softlayer_backend_vlan_id):
-    """Create a machine in Softlayer.
-    """
-    key = str(public_key).replace('\n', '')
-    try:
-        server_key = ''
-        keys = conn.list_key_pairs()
-        for k in keys:
-            if key == k.public_key:
-                server_key = k.name
-                break
-        if not server_key:
-            server_key = conn.import_key_pair_from_string(machine_name, key)
-            server_key = server_key.name
-    except:
-        server_key = conn.import_key_pair_from_string(
-            'mistio' + str(random.randint(1, 100000)), key
-        )
-        server_key = server_key.name
-
-    if '.' in machine_name:
-        domain = '.'.join(machine_name.split('.')[1:])
-        name = machine_name.split('.')[0]
-    else:
-        domain = None
-        name = machine_name
-
-    try:
-        node = conn.create_node(
-            name=name,
-            ex_domain=domain,
-            image=image,
-            size=size,
-            location=location,
-            ex_keyname=server_key,
-            ex_bare_metal=bare_metal,
-            ex_hourly=hourly,
-            ex_backend_vlan=softlayer_backend_vlan_id
-        )
-    except Exception as e:
-        raise MachineCreationError("Softlayer, got exception %s" % e, e)
 
     return node
 

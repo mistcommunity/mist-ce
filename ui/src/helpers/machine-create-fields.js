@@ -814,54 +814,6 @@ MACHINE_CREATE_FIELDS.push({
   fields: [],
 });
 
-// SOFTLAYER
-MACHINE_CREATE_FIELDS.push({
-  provider: 'softlayer',
-  fields: [
-    {
-      name: 'softlayer_backend_vlan_id',
-      label: 'Backend VLAN ID',
-      type: 'text',
-      value: '',
-      defaultValue: '',
-      show: true,
-      required: false,
-      helptext: 'Optional.',
-    },
-    {
-      name: 'hourly',
-      label: 'Hourly billing',
-      type: 'toggle',
-      value: true,
-      defaultValue: true,
-      show: true,
-      required: false,
-      helptext:
-        "If you don't select hourly billing, monthly billing will be applied",
-    },
-    {
-      name: 'bare_metal',
-      label: 'Bare Metal',
-      type: 'toggle',
-      value: false,
-      defaultValue: false,
-      show: true,
-      required: false,
-      helptext: 'Whether the new server will be Cloud server, or Bare Metal',
-    },
-    {
-      name: 'machine_password',
-      label: 'Machine Password *',
-      type: 'password',
-      value: '',
-      defaultValue: '',
-      show: false,
-      required: false,
-      helptext: 'Windows machine password is required.',
-    },
-  ],
-});
-
 // VSPHERE
 MACHINE_CREATE_FIELDS.push({
   provider: 'vsphere',
@@ -1455,7 +1407,6 @@ MACHINE_CREATE_FIELDS.forEach(p => {
       'openstack',
       'aliyun_ecs',
       'vultr',
-      'softlayer',
       'cloudsigma',
       'vexxhost',
     ].indexOf(p.provider) !== -1

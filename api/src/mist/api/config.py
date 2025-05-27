@@ -1755,26 +1755,6 @@ PROVIDERS = {
             'metal': True
         }
     },
-    'ibm': {
-        'name': 'IBM Cloud',
-        'aliases': ['softlayer', 'ibm cloud'],
-        'driver': 'softlayer',
-        'category': 'public cloud',
-        'features': {
-            'compute': True,
-            'console': False,
-            'provision': {
-                'location': True,
-                'cloudinit': True,
-                'restrictions': {
-                    'size-image-restriction': False,
-                    'location-size-restriction': False,
-                    'location-image-restriction': False,
-                },
-            },
-            'metal': True
-        }
-    },
     'digitalocean': {
         'name': 'DigitalOcean',
         'aliases': [],
