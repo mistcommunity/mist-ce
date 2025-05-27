@@ -288,11 +288,6 @@ MACHINE_CREATE_FIELDS.push({
   fields: [],
 });
 
-// MAXIHOST
-MACHINE_CREATE_FIELDS.push({
-  provider: 'maxihost',
-  fields: [],
-});
 
 // DOCKER
 MACHINE_CREATE_FIELDS.push({
@@ -1187,23 +1182,6 @@ MACHINE_CREATE_FIELDS.forEach(p => {
           unit: 'cores',
         },
       ],
-    });
-  } else if (['maxihost'].indexOf(p.provider) !== -1) {
-    // size dependent on location for maxihost
-    p.fields.splice(3, 0, {
-      name: 'size',
-      label: 'Size *',
-      type: 'mist_size',
-      value: '',
-      defaultValue: '',
-      show: true,
-      required: true,
-      options: [],
-      custom: false,
-      showIf: {
-        fieldName: 'location',
-        fieldExists: true,
-      },
     });
   } else if (['cloudsigma'].indexOf(p.provider) !== -1) {
     p.fields.splice(3, 0, {

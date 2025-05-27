@@ -18,7 +18,6 @@ from mist_api_v2.models.ibm_credentials import IbmCredentials
 from mist_api_v2.models.kubevirt_credentials import KubevirtCredentials
 from mist_api_v2.models.linode_credentials import LinodeCredentials
 from mist_api_v2.models.lxd_credentials import LxdCredentials
-from mist_api_v2.models.maxihost_credentials import MaxihostCredentials
 from mist_api_v2.models.onapp_credentials import OnappCredentials
 from mist_api_v2.models.openstack_credentials import OpenstackCredentials
 from mist_api_v2.models.rackspace_credentials import RackspaceCredentials
@@ -38,7 +37,6 @@ from mist_api_v2.models.ibm_credentials import IbmCredentials  # noqa: E501
 from mist_api_v2.models.kubevirt_credentials import KubevirtCredentials  # noqa: E501
 from mist_api_v2.models.linode_credentials import LinodeCredentials  # noqa: E501
 from mist_api_v2.models.lxd_credentials import LxdCredentials  # noqa: E501
-from mist_api_v2.models.maxihost_credentials import MaxihostCredentials  # noqa: E501
 from mist_api_v2.models.onapp_credentials import OnappCredentials  # noqa: E501
 from mist_api_v2.models.openstack_credentials import OpenstackCredentials  # noqa: E501
 from mist_api_v2.models.rackspace_credentials import RackspaceCredentials  # noqa: E501

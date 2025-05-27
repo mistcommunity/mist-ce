@@ -339,7 +339,6 @@ Polymer({
           'rackspace',
           'aliyun_ecs',
           'vultr',
-          'maxihost',
           'cloudsigma',
           'vexxhost',
         ].indexOf(provider.val) > -1
