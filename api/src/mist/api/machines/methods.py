@@ -451,13 +451,6 @@ def create_machine(auth_context, cloud_id, key_id, machine_name, location_id,
     elif cloud.ctl.provider in [Provider.RACKSPACE.value]:
         node = _create_machine_rackspace(conn, machine_name, image,
                                          size, user_data=cloud_init)
-    elif cloud.ctl.provider in [Provider.OPENSTACK.value, 'vexxhost']:
-        sec_groups = sec_groups or []
-        node = _create_machine_openstack(conn, public_key,
-                                         key.name, machine_name, image, size,
-                                         networks, volumes,
-                                         cloud_init, sec_groups,
-                                         location=location.id)
     elif cloud.ctl.provider is Provider.EC2.value:
         try:
             sec_group = sec_groups[0]
@@ -648,7 +641,7 @@ def create_machine(auth_context, cloud_id, key_id, machine_name, location_id,
             post_script_id=post_script_id,
             post_script_params=post_script_params, schedule=schedule, job=job,
         )
-    elif cloud.ctl.provider in (Provider.OPENSTACK.value, 'vexxhost'):
+    elif cloud.ctl.provider in (Provider.OPENSTACK.value):
         if associate_floating_ip:
             networks = list_networks(auth_context.owner, cloud_id)
             mist.api.tasks.openstack_post_create_steps.send(

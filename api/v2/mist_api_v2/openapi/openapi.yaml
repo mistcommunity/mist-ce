@@ -7170,7 +7170,6 @@ components:
       - alibaba
       - cloudsigma
       - equinix
-      - ibm
       - digitalocean
       - linode
       - rackspace
@@ -7178,7 +7177,6 @@ components:
       - openstack
       - onapp
       - vsphere
-      - vexxhost
       - kvm
       - lxd
       - docker
@@ -9723,7 +9721,7 @@ components:
           required:
           - size
         type: object
-      title: Openstack & Vexxhost volumes parameter
+      title: Openstack volumes parameter
       type: array
     OpenstackNet:
       properties:
@@ -9743,10 +9741,10 @@ components:
           type: array
         associate_floating_ip:
           description: "Assign a floating IP to the machine, defaults to True for\
-            \ Openstack and False for Vexxhost"
+            \ Openstack"
           title: associate_floating_ip
           type: boolean
-      title: Openstack & Vexxhost net parameter
+      title: Openstack net parameter
       type: object
     AzureVolumes:
       items:

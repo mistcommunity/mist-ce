@@ -53,10 +53,6 @@ class OpenstackObjectStorageController(BaseObjectStorageController):
                     ex_maxkeys=maxkeys)]
 
 
-class VexxhostObjectStorageController(OpenstackObjectStorageController):
-    pass
-
-
 class AmazonS3ObjectStorageController(BaseObjectStorageController):
     def _connect(self, **kwargs):
         from boto3.session import Session

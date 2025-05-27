@@ -102,7 +102,7 @@ class OpenstackNet(Model):
     def associate_floating_ip(self):
         """Gets the associate_floating_ip of this OpenstackNet.
 
-        Assign a floating IP to the machine, defaults to True for Openstack and False for Vexxhost  # noqa: E501
+        Assign a floating IP to the machine, defaults to True for Openstack  # noqa: E501
 
         :return: The associate_floating_ip of this OpenstackNet.
         :rtype: bool
@@ -113,7 +113,7 @@ class OpenstackNet(Model):
     def associate_floating_ip(self, associate_floating_ip):
         """Sets the associate_floating_ip of this OpenstackNet.
 
-        Assign a floating IP to the machine, defaults to True for Openstack and False for Vexxhost  # noqa: E501
+        Assign a floating IP to the machine, defaults to True for Openstack # noqa: E501
 
         :param associate_floating_ip: The associate_floating_ip of this OpenstackNet.
         :type associate_floating_ip: bool

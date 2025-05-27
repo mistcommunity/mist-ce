@@ -260,10 +260,6 @@ class OpenStackNetwork(Network):
     router_external = me.BooleanField(default=False)
 
 
-class VexxhostNetwork(OpenStackNetwork):
-    pass
-
-
 class LibvirtNetwork(Network):
     pass
 
@@ -432,10 +428,6 @@ class OpenStackSubnet(Subnet):
     enable_dhcp = me.BooleanField(default=True)
     dns_nameservers = me.ListField(default=lambda: [])
     allocation_pools = me.ListField(default=lambda: [])
-
-
-class VexxhostSubnet(OpenStackSubnet):
-    pass
 
 
 class AlibabaSubnet(Subnet):

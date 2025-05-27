@@ -56,7 +56,7 @@ Polymer({
       <paper-material hidden$="[[hasCloudsWithVolumes]]">
         <p>
           Creating volumes is available in OpenStack, GCE, AWS, Azure ARM, LXD,
-          Aliyun, Kubevirt, Linode, Vexxhost, Vultr and DigitalOcean clouds
+          Aliyun, Kubevirt, Linode, Vultr and DigitalOcean clouds
           <br />
           <span hidden$="[[!checkPerm('cloud', 'add')]]">
             Add a cloud using the
@@ -255,8 +255,7 @@ Polymer({
       }
       if (
         this.model.clouds[cloudId].provider === 'kubevirt' ||
-        this.model.clouds[cloudId].provider === 'openstack' ||
-        this.model.clouds[cloudId].provider === 'vexxhost'
+        this.model.clouds[cloudId].provider === 'openstack'
       ) {
         this._updateStorageClasses(cloudId);
       }
@@ -293,8 +292,7 @@ Polymer({
               return false;
             });
           } else if (
-            this.model.clouds[cloudId].provider === 'openstack' ||
-            this.model.clouds[cloudId].provider === 'vexxhost'
+            this.model.clouds[cloudId].provider === 'openstack'
           ) {
             locations = locations.filter(l => l.capabilities && l.capabilities.indexOf("storage") > -1);
           } else if (this.model.clouds[cloudId].provider === 'vultr') {

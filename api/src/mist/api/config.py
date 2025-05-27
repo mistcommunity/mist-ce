@@ -1858,26 +1858,6 @@ PROVIDERS = {
             'objectstorage': True
         }
     },
-    'vexxhost': {
-        'name': 'Vexxhost',
-        'aliases': [],
-        'driver': 'openstack',
-        'category': 'public cloud',
-        'features': {
-            'compute': True,
-            'console': True,
-            'provision': {
-                'location': False,
-                'restrictions': {
-                    'size-image-restriction': False,
-                    'location-size-restriction': False,
-                    'location-image-restriction': False,
-                },
-            },
-            'storage': True,
-            'objectstorage': True
-        }
-    },
     'onapp': {
         'name': 'OnApp',
         'aliases': [],
