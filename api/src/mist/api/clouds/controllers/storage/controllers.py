@@ -228,10 +228,6 @@ class OpenstackStorageController(BaseStorageController):
         return [volume_type.name for volume_type in volume_types]
 
 
-class VexxhostStorageController(OpenstackStorageController):
-    pass
-
-
 class AzureStorageController(BaseStorageController):
 
     def _list_volumes__postparse_volume(self, volume, libcloud_volume):

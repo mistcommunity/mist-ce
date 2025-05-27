@@ -1069,11 +1069,10 @@ def machine_console(request):
 
     if machine.cloud.ctl.provider not in ['vsphere',
                                           'openstack',
-                                          'libvirt',
-                                          'vexxhost']:
+                                          'libvirt']:
         raise MistNotImplementedError(
             "VNC console only supported for vSphere, "
-            "OpenStack, Vexxhost or KVM")
+            "OpenStack or KVM")
     url, console_type, retcode, error = \
         get_console_proxy_uri(auth_context, machine)
     if retcode != 200:

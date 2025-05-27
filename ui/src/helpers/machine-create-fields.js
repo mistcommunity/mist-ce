@@ -598,46 +598,6 @@ MACHINE_CREATE_FIELDS.push({
   ],
 });
 
-// VEXXHOST
-MACHINE_CREATE_FIELDS.push({
-  provider: 'vexxhost',
-  fields: [
-    {
-      name: 'security_group',
-      label: 'Security group *',
-      type: 'checkboxes',
-      value: '',
-      defaultValue: '',
-      show: true,
-      required: true,
-      options: [],
-    },
-    {
-      name: 'networks',
-      label: 'Networks *',
-      type: 'checkboxes',
-      value: '',
-      defaultValue: '',
-      show: true,
-      required: true,
-      options: [],
-    },
-    {
-      name: 'associate_floating_ip',
-      label: 'Associate Floating IP',
-      type: 'toggle',
-      value: 'true',
-      defaultValue: 'true',
-      show: false,
-      required: false,
-      showIf: {
-        fieldName: 'networks',
-        fieldExists: true,
-      },
-    },
-  ],
-});
-
 // EQUINIX METAL
 MACHINE_CREATE_FIELDS.push({
   provider: 'equinixmetal',
@@ -1386,7 +1346,6 @@ MACHINE_CREATE_FIELDS.forEach(p => {
       'aliyun_ecs',
       'vultr',
       'cloudsigma',
-      'vexxhost',
     ].indexOf(p.provider) !== -1
   ) {
     p.fields.push({
@@ -1440,7 +1399,6 @@ MACHINE_CREATE_FIELDS.forEach(p => {
       'aliyun_ecs',
       'lxd',
       'kubevirt',
-      'vexxhost',
     ].indexOf(p.provider) > -1
   ) {
     const allowedVolumes =
@@ -1552,7 +1510,7 @@ MACHINE_CREATE_FIELDS.forEach(p => {
       });
     }
     if (
-      ['openstack', 'ec2', 'aliyun_ecs', 'vexxhost'].indexOf(p.provider) > -1
+      ['openstack', 'ec2', 'aliyun_ecs'].indexOf(p.provider) > -1
     ) {
       p.fields[p.fields.length - 1].options.push({
         name: 'delete_on_termination',

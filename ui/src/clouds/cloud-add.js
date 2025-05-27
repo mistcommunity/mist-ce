@@ -340,7 +340,6 @@ Polymer({
           'aliyun_ecs',
           'vultr',
           'cloudsigma',
-          'vexxhost',
         ].indexOf(provider.val) > -1
       ) {
         categories[0].providers.push(provider);

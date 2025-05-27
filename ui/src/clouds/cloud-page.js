@@ -864,7 +864,7 @@ Polymer({
 
   _isSupportedObjectStorageProvider(provider) {
     // FIXME: Don't hardcode this. Backend needs to pass this info to ui.
-    return ['ec2', 'openstack', 'vexxhost'].indexOf(provider) > -1;
+    return ['ec2', 'openstack'].indexOf(provider) > -1;
   },
 
   _isSupportedContainerProvider(provider) {
