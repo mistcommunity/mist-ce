@@ -140,7 +140,7 @@ def add_cloud(request):
       description: Required for Vcloud
     password:
       type: string
-      description: Required for OpenStack, Vcloud, vSphere, CloudSigma
+      description: Required for OpenStack, Vcloud, vSphere
     port:
       type: integer
       description: Required for Vcloud
@@ -171,12 +171,11 @@ def add_cloud(request):
       - hostvirtual
       - vultr
       - aliyun_ecs
-      - cloudsigma
       required: true
       type: string
     region:
       type: string
-      description: Required for Ec2, Alibaba, Rackspace, CloudSigma.\
+      description: Required for Ec2, Alibaba, Rackspace.\
       Optional for Openstack
     remove_on_error:
       type: string
@@ -204,7 +203,7 @@ def add_cloud(request):
     username:
       type: string
       description: Required for Rackspace, OnApp, \
-      OpenStack, Vcloud, vSphere, CloudSigma
+      OpenStack, Vcloud, vSphere
     """
     auth_context = auth_context_from_request(request)
     cloud_tags, _ = auth_context.check_perm("cloud", "add", None)

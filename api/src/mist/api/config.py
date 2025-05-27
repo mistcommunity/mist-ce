@@ -1618,7 +1618,7 @@ VULTR_BACKUP_PRICE_PER_SIZE = {
 ALIBABA_DEFAULT_VOLUME_TYPE = 'cloud'
 
 PROVIDERS_WITH_CUSTOM_SIZES = ['vsphere', 'onapp', 'libvirt', 'lxd',
-                               'kubevirt', 'cloudsigma']
+                               'kubevirt']
 
 PROVIDERS_WITH_TERMINATED_MACHINES_VISIBLE = ['ec2', 'libvirt', 'azure_arm']
 
@@ -1877,27 +1877,6 @@ PROVIDERS = {
                 },
             },
             'storage': False,
-        }
-    },
-    'cloudsigma': {
-        'name': 'CloudSigma',
-        'aliases': [],
-        'driver': 'cloudsigma',
-        'category': 'public cloud',
-        'features': {
-            'compute': True,
-            'console': False,
-            'provision': {
-                'cloudinit': True,
-                'custom_size': True,
-                'location': False,
-                'restrictions': {
-                    'size-image-restriction': False,
-                    'location-size-restriction': False,
-                    'location-image-restriction': False,
-                },
-            },
-            'storage': True,
         }
     },
     'vsphere': {

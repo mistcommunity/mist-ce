@@ -66,9 +66,6 @@ mist_api_v2/models/azure_net.py
 mist_api_v2/models/base_model_.py
 mist_api_v2/models/cloud.py
 mist_api_v2/models/cloud_features.py
-mist_api_v2/models/cloud_sigma_cloud_features.py
-mist_api_v2/models/cloud_sigma_cloud_request.py
-mist_api_v2/models/cloud_sigma_credentials.py
 mist_api_v2/models/cluster.py
 mist_api_v2/models/cluster_providers.py
 mist_api_v2/models/condition.py

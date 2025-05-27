@@ -212,12 +212,6 @@ VOLUME_CREATE_FIELDS.push({
   fields: [],
 });
 
-// CLOUDSIGMA
-VOLUME_CREATE_FIELDS.push({
-  provider: 'cloudsigma',
-  fields: [],
-});
-
 // ALIYUN ECS
 VOLUME_CREATE_FIELDS.push({
   provider: 'aliyun_ecs',
@@ -589,8 +583,7 @@ VOLUME_CREATE_FIELDS.forEach(p => {
 
 
   if (
-    p.provider !== 'openstack' &&
-    p.provider !== 'cloudsigma'
+    p.provider !== 'openstack'
   ) {
     p.fields.splice(1, 0, {
       name: 'location',

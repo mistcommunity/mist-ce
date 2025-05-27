@@ -7168,7 +7168,6 @@ components:
       - azure
       - google
       - alibaba
-      - cloudsigma
       - equinix
       - digitalocean
       - linode
@@ -7605,11 +7604,9 @@ components:
             amazon: '#/components/schemas/AmazonCloudRequest'
             azure: '#/components/schemas/AzureCloudRequest'
             google: '#/components/schemas/GoogleCloudRequest'
-            cloudsigma: '#/components/schemas/CloudSigmaCloudRequest'
             alibaba: '#/components/schemas/AlibabaCloudRequest'
             digitalocean: '#/components/schemas/DigitaloceanCloudRequest'
             equinix: '#/components/schemas/EquinixCloudRequest'
-            ibm: '#/components/schemas/IbmCloudRequest'
             linode: '#/components/schemas/LinodeCloudRequest'
             rackspace: '#/components/schemas/RackspaceCloudRequest'
             vultr: '#/components/schemas/VultrCloudRequest'
@@ -7629,9 +7626,7 @@ components:
         - $ref: '#/components/schemas/AzureCloudRequest'
         - $ref: '#/components/schemas/GoogleCloudRequest'
         - $ref: '#/components/schemas/AlibabaCloudRequest'
-        - $ref: '#/components/schemas/CloudSigmaCloudRequest'
         - $ref: '#/components/schemas/EquinixCloudRequest'
-        - $ref: '#/components/schemas/IbmCloudRequest'
         - $ref: '#/components/schemas/DigitaloceanCloudRequest'
         - $ref: '#/components/schemas/LinodeCloudRequest'
         - $ref: '#/components/schemas/RackspaceCloudRequest'
@@ -7669,11 +7664,9 @@ components:
               amazon: '#/components/schemas/AmazonCloudRequest'
               azure: '#/components/schemas/AzureCloudRequest'
               google: '#/components/schemas/GoogleCloudRequest'
-              cloudsigma: '#/components/schemas/CloudSigmaCloudRequest'
               alibaba: '#/components/schemas/AlibabaCloudRequest'
               digitalocean: '#/components/schemas/DigitaloceanCloudRequest'
               equinix: '#/components/schemas/EquinixCloudRequest'
-              ibm: '#/components/schemas/IbmCloudRequest'
               linode: '#/components/schemas/LinodeCloudRequest'
               rackspace: '#/components/schemas/RackspaceCloudRequest'
               vultr: '#/components/schemas/VultrCloudRequest'
@@ -7693,9 +7686,7 @@ components:
           - $ref: '#/components/schemas/AzureCloudRequest'
           - $ref: '#/components/schemas/GoogleCloudRequest'
           - $ref: '#/components/schemas/AlibabaCloudRequest'
-          - $ref: '#/components/schemas/CloudSigmaCloudRequest'
           - $ref: '#/components/schemas/EquinixCloudRequest'
-          - $ref: '#/components/schemas/IbmCloudRequest'
           - $ref: '#/components/schemas/DigitaloceanCloudRequest'
           - $ref: '#/components/schemas/LinodeCloudRequest'
           - $ref: '#/components/schemas/RackspaceCloudRequest'
@@ -8018,50 +8009,6 @@ components:
       - apisecret
       - region
       title: AlibabaCredentials
-      type: object
-    CloudSigmaCloudRequest:
-      properties:
-        provider:
-          enum:
-          - cloudsigma
-          title: provider
-          type: string
-        credentials:
-          $ref: '#/components/schemas/CloudSigmaCredentials'
-        features:
-          $ref: '#/components/schemas/CloudSigmaCloudFeatures'
-      required:
-      - credentials
-      - provider
-      title: CloudSigmaCloudRequest
-      type: object
-    CloudSigmaCloudFeatures:
-      properties:
-        compute:
-          default: true
-          title: Compute
-          type: boolean
-      title: Features
-      type: object
-    CloudSigmaCredentials:
-      properties:
-        username:
-          description: Your CloudSigma username
-          title: Username
-          type: string
-        password:
-          description: Your CloudSigma password
-          title: Password
-          type: string
-        region:
-          description: Your CloudSigma region
-          title: region
-          type: string
-      required:
-      - password
-      - region
-      - username
-      title: CloudSigmaCredentials
       type: object
     EquinixCloudRequest:
       properties:
@@ -9352,7 +9299,6 @@ components:
           - $ref: '#/components/schemas/AlibabaVolumes'
           - $ref: '#/components/schemas/AmazonVolumes'
           - $ref: '#/components/schemas/AzureVolumes'
-          - $ref: '#/components/schemas/CloudSigmaVolumes'
           - $ref: '#/components/schemas/DigitalOceanVolumes'
           - $ref: '#/components/schemas/GoogleVolumes'
           - $ref: '#/components/schemas/LinodeVolumes'
@@ -9528,7 +9474,6 @@ components:
         type: object
       title: LXD volumes parameter
       type: array
-    CloudSigmaVolumes:
       items:
         oneOf:
         - properties:
@@ -9549,8 +9494,6 @@ components:
           - name
           - size
         type: object
-      title: CloudSigma volumes parameter
-      type: array
     VSphereExtra:
       properties:
         folder:

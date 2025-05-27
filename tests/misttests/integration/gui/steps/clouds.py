@@ -272,19 +272,6 @@ def set_g8_creds(context):
             ''' % (safe_get_var('clouds/gig_g8', 'url', context.mist_config['CREDENTIALS']['GIG_G8']['url']),
                    safe_get_var('clouds/gig_g8', 'user_id', context.mist_config['CREDENTIALS']['GIG_G8']['user_id']),))
 
-def set_cloudsigma_creds(context):
-    email = safe_get_var('clouds/cloudsigma', 'email', context.mist_config['CREDENTIALS']['CLOUDSIGMA']['email'])
-    password = safe_get_var('clouds/cloudsigma', 'password', context.mist_config['CREDENTIALS']['CLOUDSIGMA']['password'])
-    context.execute_steps('''
-                        Then I open the "Region" dropdown in the "cloud" add form
-                        Then I wait for 2 seconds
-                        Then I click the "San Jose, CA" button in the "Region" dropdown in the "cloud" add form
-                        Then I wait for 1 seconds
-                        Then I set the value "CloudSigma" to field "Name" in the "cloud" add form
-                        Then I set the value "%s" to field "Username" in the "cloud" add form
-                        Then I set the value "%s" to field "Password" in the "cloud" add form
-                    ''' % (email, password))
-
 @step('I use my second AWS credentials')
 def set_second_aws_creds(context):
     context.execute_steps('''
@@ -316,7 +303,6 @@ cloud_creds_dict = {
     "kubevirt": set_kubevirt_creds,
     "lxd": set_lxd_creds,
     "g8": set_g8_creds,
-    "cloudsigma": set_cloudsigma_creds,
 }
 
 
