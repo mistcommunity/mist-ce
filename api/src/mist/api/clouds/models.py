@@ -45,7 +45,6 @@ __all__ = [
     "KubeVirtCloud",
     "KubernetesCloud",
     "OpenShiftCloud",
-    "CloudSigmaCloud",
     "_KubernetesBaseCloud",
 ]
 # This is a map from provider name to provider class, eg:
@@ -765,16 +764,6 @@ class KubernetesCloud(_KubernetesProxyCloud):
 
 class OpenShiftCloud(_KubernetesProxyCloud):
     _controller_cls = controllers.OpenShiftMainController
-
-
-class CloudSigmaCloud(Cloud):
-
-    username = me.StringField(required=True)
-    password = me.EmbeddedDocumentField(SecretValue, required=True)
-    region = me.StringField(required=True)
-
-    _private_fields = ('password', )
-    _controller_cls = controllers.CloudSigmaMainController
 
 
 _populate_clouds()

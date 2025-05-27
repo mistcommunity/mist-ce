@@ -22,7 +22,6 @@ class SupportedProviders(Model):
     AZURE = "azure"
     GOOGLE = "google"
     ALIBABA = "alibaba"
-    CLOUDSIGMA = "cloudsigma"
     EQUINIX = "equinix"
     DIGITALOCEAN = "digitalocean"
     LINODE = "linode"

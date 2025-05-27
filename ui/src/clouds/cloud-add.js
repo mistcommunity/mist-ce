@@ -339,7 +339,6 @@ Polymer({
           'rackspace',
           'aliyun_ecs',
           'vultr',
-          'cloudsigma',
         ].indexOf(provider.val) > -1
       ) {
         categories[0].providers.push(provider);

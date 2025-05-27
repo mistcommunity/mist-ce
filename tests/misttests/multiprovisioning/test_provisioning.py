@@ -187,13 +187,6 @@ def add_cloud(provider):
             response = mist_api_v1.add_cloud(name='Vultr', provider= 'vultr', api_token=config.MIST_API_TOKEN,
                                        api_key=safe_get_var('clouds/vultr', 'apikey',
                                                             config.CREDENTIALS['VULTR']['apikey'])).post()
-        elif provider == "CloudSigma":
-            response = mist_api_v1.add_cloud(name='CloudSigma', provider= 'cloudsigma', api_token=config.MIST_API_TOKEN,
-                                           username=safe_get_var('clouds/cloudsigma', 'email',
-                                                                 config.CREDENTIALS['CLOUDSIGMA']['email']),
-                                           password=safe_get_var('clouds/cloudsigma', 'password',
-                                                                 config.CREDENTIALS['CLOUDSIGMA']['password']),
-                                           region='sjc').post()
 
         assert_response_ok(response)
         cloud_id = response.json()['id']

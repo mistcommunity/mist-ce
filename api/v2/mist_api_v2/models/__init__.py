@@ -37,9 +37,6 @@ from mist_api_v2.models.azure_extra import AzureExtra
 from mist_api_v2.models.azure_net import AzureNet
 from mist_api_v2.models.cloud import Cloud
 from mist_api_v2.models.cloud_features import CloudFeatures
-from mist_api_v2.models.cloud_sigma_cloud_features import CloudSigmaCloudFeatures
-from mist_api_v2.models.cloud_sigma_cloud_request import CloudSigmaCloudRequest
-from mist_api_v2.models.cloud_sigma_credentials import CloudSigmaCredentials
 from mist_api_v2.models.cluster import Cluster
 from mist_api_v2.models.cluster_providers import ClusterProviders
 from mist_api_v2.models.condition import Condition

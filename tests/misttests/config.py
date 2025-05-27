@@ -298,7 +298,6 @@ DEFAULT_CREDENTIALS = {
     'AWS': {'apikey': '', 'apisecret': '', 'region_name': '', 'region': ''},
     'AWS_2': {'apikey': '', 'apisecret': '', 'region_name': '', 'region': ''},
     'KVM': {'key': """ """, 'hostname': ''},
-    'AZURE': {'certificate': """ """, 'subscription_id': ''},
     'AZURE_ARM': {'client_key': '', 'client_secret': '', 'subscription_id': '', 'tenant_id': ''},
     'DIGITALOCEAN': {'token': ''},
     'DOCKER': {'authentication': '', 'tlsCaCert': """ """, 'tlsCert': """ """, 'host': '', 'tlsKey': """""", 'port': ''},
@@ -319,7 +318,6 @@ DEFAULT_CREDENTIALS = {
     'KUBEVIRT': {'host': '', 'tlsCaCert': '', 'cert': '', 'key': '', 'port': ''},
     'LXD': {'host': '', 'tlsKey': '', 'tlsCert': '', 'ca': ''},
     'GIG_G8': {'api_key': '', 'url': '', 'user_id': ''},
-    'CLOUDSIGMA': {'email': '', 'password': '', 'region': ''},
 }
 
 CREDENTIALS = get_setting("CREDENTIALS", DEFAULT_CREDENTIALS)

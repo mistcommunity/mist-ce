@@ -796,9 +796,3 @@ class KubeVirtMainController(_KubernetesBaseMainController):
 class OpenShiftMainController(_KubernetesBaseMainController):
     provider = 'openshift'
     ComputeController = compute_ctls.OpenShiftComputeController
-
-
-class CloudSigmaMainController(BaseMainController):
-    provider = 'cloudsigma'
-    ComputeController = compute_ctls.CloudSigmaComputeController
-    StorageController = storage_ctls.CloudSigmaStorageController

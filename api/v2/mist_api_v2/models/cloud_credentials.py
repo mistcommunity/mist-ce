@@ -9,7 +9,6 @@ from mist_api_v2.models.base_model_ import Model
 from mist_api_v2.models.alibaba_credentials import AlibabaCredentials
 from mist_api_v2.models.amazon_credentials import AmazonCredentials
 from mist_api_v2.models.azure_credentials import AzureCredentials
-from mist_api_v2.models.cloud_sigma_credentials import CloudSigmaCredentials
 from mist_api_v2.models.digitalocean_credentials import DigitaloceanCredentials
 from mist_api_v2.models.docker_credentials import DockerCredentials
 from mist_api_v2.models.equinix_credentials import EquinixCredentials
@@ -28,12 +27,10 @@ from mist_api_v2 import util
 from mist_api_v2.models.alibaba_credentials import AlibabaCredentials  # noqa: E501
 from mist_api_v2.models.amazon_credentials import AmazonCredentials  # noqa: E501
 from mist_api_v2.models.azure_credentials import AzureCredentials  # noqa: E501
-from mist_api_v2.models.cloud_sigma_credentials import CloudSigmaCredentials  # noqa: E501
 from mist_api_v2.models.digitalocean_credentials import DigitaloceanCredentials  # noqa: E501
 from mist_api_v2.models.docker_credentials import DockerCredentials  # noqa: E501
 from mist_api_v2.models.equinix_credentials import EquinixCredentials  # noqa: E501
 from mist_api_v2.models.google_credentials import GoogleCredentials  # noqa: E501
-from mist_api_v2.models.ibm_credentials import IbmCredentials  # noqa: E501
 from mist_api_v2.models.kubevirt_credentials import KubevirtCredentials  # noqa: E501
 from mist_api_v2.models.linode_credentials import LinodeCredentials  # noqa: E501
 from mist_api_v2.models.lxd_credentials import LxdCredentials  # noqa: E501
