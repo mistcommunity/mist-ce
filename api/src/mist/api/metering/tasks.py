@@ -131,9 +131,10 @@ def push_metering_info(owner_id):
     try:
         result = requests.post('%s/query?db=metering' % url,
                                data={'q': q}).json()
-        result = result['results'][0]['series']
-        for series in result:
-            metering[owner_id]['datapoints'] += series['values'][0][-1]
+        if result.get('results') and result['results'][0].get('series'):
+            result = result['results'][0]['series']
+            for series in result:
+                metering[owner_id]['datapoints'] += series['values'][0][-1]
     except Exception as exc:
         log.error('Failed upon datapoints metering: %r', exc)
 
