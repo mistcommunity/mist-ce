@@ -1602,7 +1602,11 @@ class BaseComputeController(BaseController):
         except AttributeError:
             _location.country = None
         _location.name = libcloud_location.name
-        _location.extra = copy.deepcopy(libcloud_location.extra)
+        # Convert list of features to dictionary if needed
+        if isinstance(libcloud_location.extra, list):
+            _location.extra = {'features': libcloud_location.extra}
+        else:
+            _location.extra = copy.deepcopy(libcloud_location.extra)
         _location.missing_since = None
         _location.parent = self._list_locations__get_parent(
             _location, libcloud_location)
@@ -1727,7 +1731,9 @@ class BaseComputeController(BaseController):
         return
 
     def _list_locations__location_creation_date(self, libcloud_location):
-        return libcloud_location.extra.get('created_at')
+        if isinstance(libcloud_location.extra, dict):
+            return libcloud_location.extra.get('created_at')
+        return None
 
     def _list_locations__get_capabilities(self, libcloud_location
                                           ) -> List[str]:
