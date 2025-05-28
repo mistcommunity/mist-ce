@@ -3,4 +3,4 @@
 	url = https://github.com/novnc/noVNC.git
 [submodule "api/lc"]
 	path = api/lc
-	url = https://github.com/apache/libcloud.git
+	url = https://github.com/mistcommunity/libcloud.git

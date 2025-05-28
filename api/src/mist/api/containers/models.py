@@ -123,7 +123,8 @@ class Cluster(OwnershipMixin, me.Document, TagMixin):
     credentials = MistDictField()
     config = MistDictField()
     extra = MistDictField()
-    state = "unknown"
+    state = me.StringField(default='unknown',
+                           choices=api_config.CLUSTER_STATES)
     last_seen = me.DateTimeField()
     missing_since = me.DateTimeField()
     created = me.DateTimeField()

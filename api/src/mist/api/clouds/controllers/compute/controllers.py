@@ -48,7 +48,7 @@ from html import unescape
 from xml.sax.saxutils import escape
 
 from libcloud.pricing import get_size_price, get_pricing
-from libcloud.pricing import _get_gce_image_price
+from libcloud.pricing import get_gce_image_price
 
 from libcloud.compute.base import Node, NodeImage, NodeLocation
 from libcloud.compute.base import NodeAuthSSHKey, NodeAuthPassword
@@ -65,10 +65,10 @@ from libcloud.container.base import ContainerImage, Container
 from libcloud.common.exceptions import BaseHTTPError
 from libcloud.common.types import InvalidCredsError
 
-from libcloud.container.drivers.kubernetes import to_n_bytes
-from libcloud.container.drivers.kubernetes import to_memory_str
-from libcloud.container.drivers.kubernetes import to_cpu_str
-from libcloud.container.drivers.kubernetes import to_n_cpus
+from libcloud.utils.misc import to_n_bytes
+from libcloud.utils.misc import to_memory_str
+from libcloud.utils.misc import to_cpu_str
+from libcloud.utils.misc import to_n_cpus
 
 from mist.api.exceptions import MistError
 from mist.api.exceptions import InternalServerError
