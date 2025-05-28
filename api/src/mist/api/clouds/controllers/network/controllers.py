@@ -73,7 +73,9 @@ class AzureArmNetworkController(BaseNetworkController):
         return self.cloud.ctl.compute.connection.ex_list_subnets(l_network)
 
     def _list_subnets__cidr_range(self, subnet, libcloud_subnet):
-        return subnet.extra.pop('addressPrefix')
+        # FixMe: This Azure API seems to be broken
+        # return subnet.extra.pop('addressPrefix')
+        return ""
 
     def _get_libcloud_subnet(self, subnet):
         networks = self.cloud.ctl.compute.connection.ex_list_networks()
