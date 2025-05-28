@@ -769,6 +769,8 @@ def create_machine_async(
                 error=error, external_id=node.get('id', ''),
                 user_id=auth_context.user.id
             )
+            # FixMe: We should not need this
+            log.error(f"DEBUG: machine_creation_finished , job_id {job_id}: {str(error)}", exc_info=True)
     with ThreadPoolExecutor(max_workers=10) as executor:
         results = executor.map(create_machine_wrapper, specs)
     print('create_machine_async: unprocessed results {}'.format(results))
