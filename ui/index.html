@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
     <link rel="manifest" href="/ui/manifest.json">
     <link tal:condition="theme|nothing" rel="stylesheet" tal:attributes="href string:/static/ui/${theme}-theme.css">
-    <base tal:attributes="href string:/ui/${build_path}" tal:condition="build_path"></base>
-    <base tal:attributes="href string:/ui-dev/" tal:condition="not: build_path"></base>
+    <base tal:attributes="href string:/ui/build/bundled/" tal:condition="js_build"></base>
+    <base tal:attributes="href string:/ui-dev/" tal:condition="not: js_build"></base>
 
     <title tal:content="portal_name|nothing">Mist :: multi cloud management platform</title>
 
@@ -23,31 +23,52 @@
         };
     </script>
     <script tal:condition="features['rbac']" tal:content="structure ugly_rbac"></script>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async tal:condition="google_analytics_id" src="https://www.googletagmanager.com/gtag/js?id=${google_analytics_id}"></script>
-    <script type="module">
-        const dataLayer = window.dataLayer || [];
-        function gtag(...args) { dataLayer.push(args); }
-        gtag('js', new Date());
-        gtag('config', '${google_analytics_id}', { // eslint-disable-line
-            'custom_map': { 'app': 'ui' }
-        });
-        gtag('set', { 'content_group1': 'ui' });
-    </script>
-    <script tal:content="string: const True = true, False = false, CONFIG = {'portal_name': '${portal_name}', 'features': ${structure:features}, 'email': ${email}, 'cta': ${cta}, 'theme': '${theme}'};">
-        const CONFIG = false; // eslint-disable-line no-unused-vars
-    </script>
+
+    <script
+        tal:content="string: const True = true, False = false, CONFIG = {'portal_name': '${portal_name}', 'features': ${structure:features}, 'email': ${email}, 'cta': ${cta}, 'theme': '${theme}'};">
+            const CONFIG = false; // eslint-disable-line no-unused-vars
+        </script>
+    <script tal:condition="csrf_token|nothing" tal:content="string: const CSRF_TOKEN=${csrf_token}"></script>
 </head>
 <body>
-    <mist-app unresolved>
-    </mist-app>
+    <div id="app-container"></div>
     <script type="module">
-    /* eslint-disable no-undef */
-    import './src/mist-app.js';
+        async function loadApp() {
+            try {
+                const response = await fetch('/api/v1/ping', {
+                    method: 'GET',
+                    credentials: 'include', // Ensure cookies are sent with the request
+                });
 
-    if (CONFIG) {
-        document.querySelector('mist-app').config = CONFIG;
-    }
+                if (response.ok) {
+                    const authStatus = await response.json();
+                    const appContainer = document.getElementById('app-container');
+
+                    if (authStatus.authenticated) {
+                        // Load mist-app.js if authenticated
+                        const { default: MistApp } = await import('./src/mist-app.js');
+                        appContainer.innerHTML = '<mist-app unresolved></mist-app>';
+                        if (CONFIG) {
+                            document.querySelector('mist-app').config = CONFIG;
+                        }
+                    } else {
+                        throw new Error('Not authenticated');
+                    }
+                } else {
+                    throw new Error('Not authenticated');
+                }
+            } catch (error) {
+                console.error('Error checking authentication status:', error);
+                // Load auth-app.js if not authenticated
+                const { default: AuthApp } = await import('./src/auth/auth-app.js');
+                document.getElementById('app-container').innerHTML = '<auth-app unresolved></auth-app>';
+
+                document.querySelector('auth-app').csrfToken = CSRF_TOKEN;
+                document.querySelector('auth-app').config = CONFIG;
+            }
+        }
+
+        loadApp();
     </script>
 </body>
 </html>

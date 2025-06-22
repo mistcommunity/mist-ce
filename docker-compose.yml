@@ -125,7 +125,7 @@ services:
     command: bin/wait-all bin/dramatiq
 
   portal:
-    image: $IMG_REGISTRY/portal:$IMG_TAG
+    image: $IMG_REGISTRY/portal:master
     command: sh /entry.sh
     stdin_open: true
     tty: true
@@ -143,16 +143,6 @@ services:
     expose:
       - 80
 
-  landing:
-    image: $IMG_REGISTRY/landing:$IMG_TAG
-    platform: linux/x86_64
-    command: sh /entry.sh
-    stdin_open: true
-    tty: true
-    restart: on-failure:5
-    expose:
-      - 80
-
   nginx:
     image: $IMG_REGISTRY/nginx:$IMG_TAG
     platform: linux/x86_64
@@ -162,7 +152,6 @@ services:
     depends_on:
       - api
       - sockjs
-      - landing
       - ui
 
   vminsert:

@@ -136,7 +136,7 @@ class CsrfMiddleware(object):
     exempt = ('/new_metrics', '/stripe', '/tokens',
               '/api/v1/tokens', '/auth', '/api/v1/insights/register',
               '/api/v1/dev/register', '/api/v1/dev/users',
-              '/api/v1/rule-triggered', )
+              '/api/v1/rule-triggered', '/login')
 
     def __init__(self, app):
         self.app = app

@@ -59,11 +59,9 @@ services:
     build: ./ui
     volumes:
       - ./ui:/ui:rw
+    ports:
+      - 8000
 
-  landing:
-    build: ./landing
-    volumes:
-      - ./landing:/landing:rw
   nginx:
     build: ./docker/nginx
     volumes:

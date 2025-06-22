@@ -59,15 +59,14 @@ docker compose up -d --wait
 > This will build all the Docker images and start them and it can take some time depending on performance of your computer. It is also expected that it will use quite a lot of disk space and RAM.
 
 ### Building the UI
+
 Install all front-end dependencies with the following commands:
 ```shell
-docker-compose exec landing npm install
 docker-compose exec ui npm install
 ```
 
-And then build the landing & UI bundles with:
+And then build the UI bundles with:
 ```shell
-docker-compose exec landing npm run build
 docker-compose exec ui npm run build
 ```
 
@@ -362,7 +361,6 @@ The following table lists all the configurable parameters in Mist's Helm chart a
 | `deployment.sockjs.replicas`               | Replicas in sockjs deployment                                                     | `1`                               |
 | `deployment.ui.replicas`                   | Replicas in Mist UI deployment.                                                         | `1`                               |
 | `deployment.nginx.replicas`                | Replicas in NGINX deployment.                                                      | `1`                               |
-| `deployment.landing.replicas`              | Replicas in Mist's landing webpage deployment.                                                    | `1`                               |
 | `deployment.dramatiq.dramatiq.enabled`     | Enable Dramatiq consumers for all queues.                                           | `true`                            |
 | `deployment.dramatiq.dramatiq.replicas`    |                                                                                    | `2`                               |
 | `deployment.dramatiq.default.enabled`      | Enable Dramatiq consumers for `default` queue.                                      | `false`                           |
@@ -598,21 +596,19 @@ This will mount the checked out code into the containers and may take some time.
 
 By cloning the directory, there is also a `docker-compose.override.yml` file in the current directory in addition to `docker-compose.yml`. This is used to modify the configuration for development mode.
 
-If you are not interested in front-end development, you can comment out the UI & landing sections within the `docker-compose.override.yml` file and re-run `docker-compose up -d`.
+If you are not interested in front-end development, you can comment out the UI section within the `docker-compose.override.yml` file and re-run `docker-compose up -d`.
 
-Otherwise, you will also need to install the UI & landing page dependencies before you can access the Mist UI.
+Otherwise, you will also need to install the UI page dependencies before you can access the Mist UI.
 
 Install all front-end dependencies with the following commands:
 
 ```
-docker-compose exec landing npm install
 docker-compose exec ui npm install
 ```
 
-And then build the landing & UI bundles with:
+And then build the UI bundles with:
 
 ```
-docker-compose exec landing npm run build
 docker-compose exec ui npm run build
 ```
 

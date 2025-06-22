@@ -32,8 +32,8 @@ documentContainer.innerHTML = `<style is="custom-style">
 
         --logo-height: 53px;
         --logo-width: 119px;
-        --logo-image: url('images/logo.svg');
-        --vertical-logo: url('images/logo-vertical.svg');
+        --logo-image: url('assets/logos/sign-in-logo.svg');
+        --vertical-logo: url('assets/logos/sign-in-logo-vertical.svg');
         --form-box-shadow: rgba(0, 0, 0, 0.157) 0px 2px 5px 0px, rgba(0, 0, 0, 0.118) 0px 2px 10px 0px;
         --form-background: #f7f7f7;
         --form-output-color: #444;

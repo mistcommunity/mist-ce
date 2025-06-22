@@ -714,18 +714,6 @@ deployment:
         memory: 60Mi
         cpu: 500m
 
-  # Landing deployment settings.
-  landing:
-    replicas: 1
-    autoscaling: *autoscaling
-    resources:
-      requests:
-        memory: 50Mi
-        cpu: 10m
-      limits:
-        memory: 250Mi
-        cpu: 200m
-
   # Portal deployment settings.
   portal:
     replicas: 1

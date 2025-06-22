@@ -2,6 +2,8 @@
   "entrypoint": "index.html",
   "shell": "src/mist-app.js",
   "fragments": [
+    "src/auth/auth-app.js",
+    "src/auth/auth-sign-in.js",
     "src/page-machines.js",
     "src/page-images.js",
     "src/page-keys.js",

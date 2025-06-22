@@ -49,7 +49,6 @@ BROKER_URL = "amqp://guest:guest@rabbitmq/"
 INTERNAL_SOCKJS_HOST = "sockjs"
 SSL_VERIFY = True
 THEME = ""
-EMAIL_LOGO = "landing/images/logo-email-440.png"
 
 GC_SCHEDULERS = True
 GC_SESSIONS = True
@@ -60,7 +59,6 @@ USAGE_SURVEY = False
 ENABLE_METERING = True
 CHECK_PERIODIC_TASKS = True
 BACKUP_INTERVAL = 24
-LANDING_CDN_URI = ""
 BLOG_CDN_URI = ""
 
 METERING_PROMQL_LOOKBACK = "2h"
@@ -135,7 +133,6 @@ SENTRY_CONFIG = {
 DATABASE_VERSION = 48
 
 UI_TEMPLATE_URL = "http://ui"
-LANDING_TEMPLATE_URL = "http://landing"
 
 PY_LOG_LEVEL = logging.INFO
 PY_LOG_FORMAT = '%(asctime)s %(levelname)s %(threadName)s %(module)s - %(funcName)s: %(message)s'  # noqa
@@ -1479,18 +1476,6 @@ SENDGRID_EMAIL_NOTIFICATIONS_KEY = ""
 GOOGLE_ANALYTICS_ID = ""
 
 USE_EXTERNAL_AUTHENTICATION = False
-
-LANDING_CATEGORIES = [{
-    'href': '/',
-    'name': 'home',
-    'title': 'Home',
-    'hiddenFromMenu': 1
-}]
-
-LANDING_FORMS = [
-    'sign-in', 'sign-up', 'reset-password', 'forgot-password', 'set-password',
-    'get-started', 'buy-license', 'request-pricing'
-]
 
 ###############################################################################
 # App constants
@@ -3264,7 +3249,7 @@ FROM_ENV_STRINGS = [
     'AMQP_URI', 'BROKER_URL', 'PORTAL_URI', 'CORE_URI',
     'MONGO_URI', 'MONGO_DB', 'DOCKER_IP',
     'DOCKER_PORT', 'DOCKER_TLS_KEY', 'DOCKER_TLS_CERT', 'DOCKER_TLS_CA',
-    'UI_TEMPLATE_URL', 'LANDING_TEMPLATE_URL', 'THEME',
+    'UI_TEMPLATE_URL', 'THEME',
     'DEFAULT_MONITORING_METHOD', 'LICENSE_KEY', 'AWS_ACCESS_KEY',
     'AWS_SECRET_KEY', 'AWS_MONGO_BUCKET', 'VAULT_ADDR', 'VAULT_TOKEN'
 ] + PLUGIN_ENV_STRINGS
@@ -3446,7 +3431,6 @@ HOMEPAGE_INPUTS = {
         'signin_cilogon': ALLOW_SIGNIN_CILOGON,
         'default_signin_method': DEFAULT_SIGNIN_METHOD.lower(),
         'signin_home': REDIRECT_HOME_TO_SIGNIN,
-        'landing_footer': SHOW_FOOTER,
         'docs': DOCS_URI,
         'support': SUPPORT_URI,
         'currency': CURRENCY
@@ -3459,8 +3443,7 @@ HOMEPAGE_INPUTS = {
     'fb_id': FB_ID,
     'chatwoot_token': CHATWOOT_TOKEN,
     'google_analytics_id': GOOGLE_ANALYTICS_ID,
-    'mixpanel_id': MIXPANEL_ID,
-    'categories': LANDING_CATEGORIES
+    'mixpanel_id': MIXPANEL_ID
 }
 
 if HAS_BILLING and STRIPE_PUBLIC_APIKEY:

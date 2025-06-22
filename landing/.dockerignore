@@ -1,8 +1,0 @@
-**/Dockerfile
-**/.dockerignore
-**/.git
-**/.gitignore
-**/.gitlab-ci.yml
-bower_components
-build
-
