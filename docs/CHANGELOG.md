@@ -1,4 +1,69 @@
-# Changelog
+# 📝 Changelog
+
+## v4.8.3
+> Hugo docs [#17](https://github.com/mistcommunity/mist-ce/issues/17)
+- Documentation: Start Hugo docs site
+
+## v4.8.2
+> Start docs [#17](https://github.com/mistcommunity/mist-ce/issues/17)
+- Documentation: Create docs folder
+- Documentation: Overhaul readme
+- Documentation: Update changelog
+- Documentation: Start branches audit
+- Documentation: Start roadmap
+- Documentation: Create DEVELOPERS.md
+- Documentation: Start initial contributing guide
+- Documentation: Attempt to map out features status list
+- Documentation: Kubernetes, Docker, and marketplace installation guides
+- Documentation: Basic code of conduct
+
+## v4.8.1 (June 2025)
+> Remove landing app [#25](https://github.com/mistcommunity/mist-ce/issues/25)
+ - Simplify: Move sign-in from landing to the UI app
+ - Simplify: Temporarily remove forgot-password, set-password and sign-up
+ - Simplify: Remove landing app
+ - Simplify: Cleanup after removing landing app
+
+## v4.8.0 (May 2025)
+> Initialize mistcommunity, create monorepo.
+ - Simplify: Combine submodules in to mist-ce to become a mono-repo
+ - Simplify: Remove memcached
+ - Simplify: Install paramiko as pip module instead of submodule
+ - Change: Include Apache Libcloud as a submodule
+ - Change: Update to Python 3.11
+ - Bugfix: Fixes to Azure compatibility
+ - CI/CD: Create GitHub workflow
+
+> [!NOTE]  
+> Versions prior to v4.8.0 are from the original codebase.  
+> There were existing branches with later versions which are not merged in to master. These will be migrated in the future.
+
+## v4.7.1 (31 Jul 2022)
+
+- Change: Add feature flag for parsing arp tables in Libvirt hosts
+- Change: Regularly probe hosts with associated keys to determine cpu & ram
+- Bugfix: Update UI when adding Libvirt hosts
+- Bugfix: Fix tree view issue
+- Bugfix: Fix LXD shell issue
+
+## v4.7.0 (25 Jul 2022)
+
+- Feature: Support for GKE & EKS managed clusters. Inventory, pricing, provisioning (APIv2 only), edit nodepools (APIv2 only).
+- Feature: Serial console support for KVM machines
+- Feature: Price catalog for block storage volumes (EE / HS only).
+- Change: Improve installation process. Helm chart as the recommended method.
+- Change: Refactor object storage support to improve performance.
+- Change: Reduce amount of metadata about locations, images & sizes fetched by the UI to improve performance.
+- Change: Rename CORE_URI to PORTAL_URI in settings.
+- Change: Improve EC2 & GCP instance pricing.
+- Change: Fetch KVM guest ifaces & IP addresses from Libvirt instead of parsing arp tables
+- Change: Update paramiko, libcloud & RabbitMQ dependencies.
+- Bugfix: Fix metering of block storage volumes.
+- Bugfix: Fix Openstack issue when auth url contains a path.
+- Bugfix: Fix execution of Ansible playbooks.
+- Bugfix: Fix LXD shell support
+- Bugfix: Fix execution of orchestration template workflows (EE/HS only)
+
 
 ## v4.6.2 (20 Dec 2021)
 
