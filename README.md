@@ -11,8 +11,11 @@
 
 <br>
 <hr>
-<h1><img src="./docs/assets/logo_44.png" height="28" style="transform: translateY(4px)"/> Mist Community Edition - Cloud Management Platform</h1>
+<h1><img src="./docs/assets/logo_44.png" height="28" style="transform: translateY(4px)"/> Mist Cloud Management Platform</h1>
 
+<ins>***Community Edition***</ins>
+
+<br>
 mist-ce is an open-source, community maintained fork of [mist.io](https://github.com/mistio/mist-ce), a multi-cloud management platform aiming to simplify and reduce the cost of administering public clouds, private clouds, hypervisors, containers and bare metal servers. 
 
 
