@@ -7,10 +7,12 @@
 - [CHANGELOG](./CHANGELOG.md)
 - [v4.8.x - Current](#v48x---current)
 - [v4.9.x - v4.x.x](#v49x---v4xx)
-- [v5.0.0](#v500)
-- [v6.0.x](#v60x)
-- [v7.0.x](#v70x)
-- [v8.0.x](#v80x)
+- [v5.x.x](#v5xx)
+- [v6.x.x](#v6xx)
+- [v7.x.x](#v7xx)
+- [v8.x.x](#v8xx)
+- [v9.x.x](#v9xx)
+- [v10.x.x](#v10xx)
 - [Meta](#meta)
 
 ```
@@ -103,7 +105,7 @@
 | v7.9.x   | 🛠️Fix     |✨     | Re-introduce networks                                           | 
 
 
-## v8.0.x
+## v8.x.x
 > CI/CD automation (infrastructure as code)
 
 | Version  | Category  | Status | Description                                                     | Issue
@@ -113,7 +115,7 @@
 | v8.2.x   | 💡Feature |✨     | Ansible?                                                        | 
 
 
-## v9.0.x
+## v9.x.x
 > Automated application deployment
 
 | Version  | Category  | Status | Description                                                     | Issue
@@ -124,7 +126,7 @@
 | v9.3.x   | 💡Feature |✨     | Integrate with CasaOS app store                                 | 
 
 
-## v10.0.x
+## v10.x.x
 > Framework update
 
 | Version  | Category   | Status | Description                                                     | Issue

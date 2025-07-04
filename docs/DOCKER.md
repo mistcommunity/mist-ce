@@ -1,20 +1,25 @@
+<span id="top"></span>
+
 # 🐋 Docker
 
 Thank you for trying out mist, all feedback is welcome 📢
 
-[*️⃣ 0. Requirements](#️⃣-0-requirements) \
-[⬇️ 1. Download](#⬇️-1-download) \
-[➡️ 2. Settings](#➡️-2-settings) \
-[▶️ 4. Start](#▶️-4-start) \
-[🚹 5. User](#🚹-5-user) \
-[↗️ 6. Open](#↗️-6-open) \
-[🔄 7. Options](#🔄-7-options)
+[*️⃣ 0. Requirements](#requirements) \
+[⬇️ 1. Download](#download) \
+[➡️ 2. Settings](#settings) \
+[▶️ 4. Start](#start) \
+[🚹 5. User](#user) \
+[↗️ 6. Open](#open) \
+[🔄 7. Options](#options)
 
 > [!TIP]
 > To avoid conflicts with existing containers and ports, it is recommended to use a dedicated VM with Docker and Docker Compose. Otherwise you can modify the docker-compose.yml to suite your specific environment.
 
 > [!CAUTION]
 > As per the Apache License 2.0, Mist Community Edition is provided as-is, without any guarantees or warranties. Use at your own risk. The contributors are not liable for data loss, security breaches, or financial loss.
+
+<br>
+<span id="requirements"></span>
 
 ## *️⃣ 0. Requirements
 
@@ -39,6 +44,8 @@ Thank you for trying out mist, all feedback is welcome 📢
 
 > We aim to make this process simpler in the future.
 
+<br>
+<span id="download"></span>
 
 ## ⬇️ 1. Download
 
@@ -47,16 +54,22 @@ Thank you for trying out mist, all feedback is welcome 📢
 1. Download or copy the [docker-compose.yml](../docker-compose.yml) and the [.env.template](../docker-compose.yml)
 2. Rename **.env.template** to **.env**
 
+<br>
+<span id="settings"></span>
 
 ## ➡️ 2. Settings
 1. Change `IMG_TAG` in the .env file to the desired version ([see tags](https://github.com/mistcommunity/mist-ce/tags)) or just `latest`
 2. Set `IMG_REGISTRY` in .env to `ghcr.io/mistcommunity`
 
+<br>
+<span id="start"></span>
 
 ## ▶️ 4. Start
 1. Run `docker compose up -d` or optionally run `docker compose pull` first to download the images
 2. Then, run `docker-compose ps` or `docker stats` and verify that all containers are in the UP state, except the short-lived container elasticsearch-manage
 
+<br>
+<span id="user"></span>
 
 ## 🚹 5. User
 1. Now, you need to create an admin user, run: 
@@ -65,6 +78,8 @@ Thank you for trying out mist, all feedback is welcome 📢
 docker compose exec api sh -c './bin/adduser --admin admin@example.com'
 ```
 
+<br>
+<span id="open"></span>
 
 ## ↗️ 6. Open 
 If all looks good...
@@ -73,6 +88,8 @@ If all looks good...
 3. ...
 4. profit?
 
+<br>
+<span id="options"></span>
 
 ## 🔄 7. Options
 > [!CAUTION]
