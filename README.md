@@ -1,4 +1,4 @@
-<a name="top"></a>
+<span id="top"></span>
 ![banner](./docs/assets/banner_small.jpg)
 ![GitHub Tag](https://img.shields.io/github/v/tag/mistcommunity/mist-ce)
 ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/mistcommunity/mist-ce)
@@ -9,43 +9,55 @@
 ![GitHub Repo stars](https://img.shields.io/github/stars/mistcommunity/mist-ce?logo=github&style=flat)
 ![GitHub last commit (branch)](https://img.shields.io/github/last-commit/mistcommunity/mist-ce?logo=github)
 
-<br>
-<hr>
-<h1><img src="./docs/assets/logo_44.png" height="28" style="transform: translateY(4px)"/> Mist Cloud Management Platform</h1>
+<h1 align="center">Mist</h1>
 
-<ins>***Community Edition***</ins>
+<p align="center">
+  <i>Community Edition </i>
+   <br/>
+  <img width="120" src="./docs/assets/logo_600.png" />
+  <br/>
+  <b><a href="./docs/FEATURES.md">Features</a></b> | <b><a href="./docs/DOCKER.md">Getting Started</a></b> | <b><a href="./docs/ROADMAP.md">Road Map</a></b> | <b><a>Documentation</a></b> | <b><a href="https://github.com/mistcommunity/mist-ce/issues">Issues</a></b>
+</p>
 
-<br>
+
 mist-ce is an open-source, community maintained fork of [mist.io](https://github.com/mistio/mist-ce), a multi-cloud management platform aiming to simplify and reduce the cost of administering public clouds, private clouds, hypervisors, containers and bare metal servers. 
 
+<br>
 
 ## 📄 Contents
-- [🔗Links](#🔗-quick-links)
-- [ℹ️About](#ℹ️-about)
-- [🧐Overview](#🧐-overview)
-- [🖼️Screenshots](#🖼️-screenshots)
-- [🔠Terminology](#🔠-terminology)
-- [✨Features](#✨-features)
-- [📖Documentation](#📖-documentation)
-- [🏗️Architecture](#🏗️-architecture)
-- [🚀Installation](#🚀-installation)
-- [🤔Questions, Feedback](#🤔-questions-feedback)
+- [🔗 Quick Links](#links)
+- [ℹ️ About](#about)
+- [🧐 Overview](#overview)
+- [🖼️ Screenshots](#screenshots)
+- [🔠 Terminology](#terminology)
+- [✨ Features](#features)
+- [📖 Documentation](#documentation)
+- [🏗️ Architecture](#architecture)
+- [🚀 Installation](#installation)
+- [🤔 Questions, Feedback](#questions)
 
+<br>
+<span id="links"></span>
 
-## 🔗 Quick Links
-|  | Link                                                            | Description
-|--|-----------------------------------------------------------------|-----------------
-|💡|[CONTRIBUTING](./docs/CONTRIBUTING.md)                           | Help to get started on contributing
-|⚠️|[ISSUES](https://github.com/mistcommunity/mist-ce/issues)        | Check for bug reports & feature requests
-|🔀|[PULL REQUESTS](https://github.com/mistcommunity/mist-ce/pulls)  | Existing pull requests
-|👨🏻‍💻|[DEVELOPERS](./docs/DEVELOPERS.md)                               | Guide on developing
-|📝|[CHANGELOG](./docs/CHANGELOG.md)                                 | Current and legacy changelog
-|✨|[FEATURES](./docs/FEATURES.md)                                   | Feature tracking list
-|🗺️|[ROADMAP](./docs/ROADMAP.md)                                     | Rough development roadmap
-|🌿|[BRANCHES](./docs/BRANCHES.md)                                   | Audit of legacy branches
+## 🔗 Quick Links 
+
+|  | Link                                                                | Description
+|--|--------------------------------------------------------------------|-----------------
+|💡|[CONTRIBUTING](./docs/CONTRIBUTING.md)                              | Help to get started on contributing
+|⚠️|[ISSUES](https://github.com/mistcommunity/mist-ce/issues)           | Check for bug reports & feature requests
+|🗪|[DISCUSSIONS](https://github.com/mistcommunity/mist-ce/discussions)  | Discuss the direction of mist
+|🔀|[PULL REQUESTS](https://github.com/mistcommunity/mist-ce/pulls)     | Existing pull requests
+|👨🏻‍💻|[DEVELOPERS](./docs/DEVELOPERS.md)                                  | Guide on developing
+|📝|[CHANGELOG](./docs/CHANGELOG.md)                                    | Current and legacy changelog
+|✨|[FEATURES](./docs/FEATURES.md)                                      | Feature tracking list
+|🗺️|[ROADMAP](./docs/ROADMAP.md)                                        | Rough development roadmap
+|🌿|[BRANCHES](./docs/BRANCHES.md)                                      | Audit of legacy branches
+|🔒|[SECURITY](./docs/SECURITY.md)                                      | Security information
+|🤗|[CONDUCT](./docs/CODE_OF_CONDUCT.md)                                | Code of Conduct
 
 <br>
 <hr>
+<span id="about"></span>
 
 # ℹ️ About
 > [!NOTE]  
@@ -60,6 +72,7 @@ This project, [mistcommunity/mist-ce](https://github.com/mistcommunity/mist-ce),
 
 <br>
 <hr>
+<span id="overview"></span>
 
 # 🧐 Overview
 Mist simplifies multi-cloud management. It offers a unified interface from where you can manage public clouds, private clouds, hypervisors, containers and bare metal servers. With Mist you can perform common management tasks like provisioning, orchestration, monitoring, automation and cost analysis.
@@ -73,8 +86,11 @@ Mist simplifies multi-cloud management. It offers a unified interface from where
 
 <br>
 <hr>
+<span id="screenshots"></span>
 
 # 🖼️ Screenshots
+
+<a name="screenshots"></a>
 
 <p align="center">
   <img src="./docs/assets/screenshots/mockup-imac-n.webp" width="100%">
@@ -89,6 +105,7 @@ Mist simplifies multi-cloud management. It offers a unified interface from where
 
 <br>
 <hr>
+<span id="terminology"></span>
 
 # 🔠 Terminology
 
@@ -108,6 +125,7 @@ Some terms are used very often in Mist. Below is a list of the most basic ones t
 
 <br>
 <hr>
+<span id="features"></span>
 
 # ✨ Features
 
@@ -146,6 +164,7 @@ See [FEATURES.md](./docs/FEATURES.md) for details.
 
 <br>
 <hr>
+<span id="documentation"></span>
 
 # 📖 Documentation
 After the sale to Dell the offical documention site [docs.mist.io](https://docs.mist.io) disappeared, so the latest documentation we have is available on the Internet Archive's Wayback Machine: [docs.mist.io](https://web.archive.org/web/20231002042043/https://docs.mist.io/) (last updated October 2, 2023)
@@ -159,6 +178,7 @@ Documentation will be available as a GitHub pages site and as a self-hosted cont
 
 <br>
 <hr>
+<span id="architecture"></span>
 
 # 🏗️ Architecture
 
@@ -198,6 +218,7 @@ The most notable components are the following:
 
 <br>
 <hr>
+<span id="installation"></span>
 
 # 🚀 Installation
 > [!WARNING]
@@ -220,6 +241,7 @@ You can install Mist in several ways, depending on your needs:
 
 <br>
 <hr>
+<span id="questions"></span>
 
 # 🤔 Questions, Feedback
 |  | Link                                                               | Description
@@ -231,9 +253,12 @@ You can install Mist in several ways, depending on your needs:
 
 <br>
 <hr>
-<hr>
 
-[BACK TO TOP](#top)
+[⬆️ BACK TO TOP](#top)
 
 <hr>
-<hr>
+<p  align="center">
+  <i>Licensed under <a href="./LICENSE">Apache 2.0</a></i><br>
+  <img src="./docs/assets/logo_600.png" style="height: 120px"/><br>
+  <sup>Thanks for visiting :)</sup>
+</p>
