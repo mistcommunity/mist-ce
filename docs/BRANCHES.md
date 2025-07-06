@@ -27,27 +27,30 @@ See [ROADMAP](./ROADMAP.md) and [CHANGELOG](./CHANGELOG.md)
 <hr>
 
 ## ✅ Branching Strategy
-We now follow a minor version branching convention based on semantic versioning:
+We now follow a minor version branching convention based on semantic versioning, for example:
 
 ```
-master            ← latest stable
-v4                ← stable major release branch
-v4.8              ← stable minor release branch
+v4.8              ← stable minor release branch (latest - default branch)
 v4.8-staging      ← testing branch for PRs before release
 v3                ← historical major release
-v2                ← historical major release (can probably recover from tags)
-v1                ← historical major release (can probably recover from tags)
+v2                ← historical major release
+v1                ← historical major release
 ```
 
 ### Proposed Guide:
 
-1. Contributors branch off from *-staging.
-2. PRs target the *-staging branch.
-3. After testing and review, changes are merged to the matching minor stable branch.
-4. Merge up to the latest stable major branch
-4. We tag patch releases as v4.8.1, v4.8.2, etc.
-5. Docker images are built/tagged automatically by GitHub Actions.
+1. Contributors fork the repo
+2. Create a new branch for the feature / fix (prefix with the version, e.g. v4.8.x-docs)
+3. PRs target the *-staging branch.
+4. After testing and review, changes are merged to the matching minor stable branch.
+5. We tag patch releases as v4.8.1, v4.8.2, etc.
+6. Docker images are built/tagged automatically by GitHub Actions.
 
+```
+v4.8.x                    ← stable (release) branch
+ └── v4.8.x-staging       ← PRs merged here first for testing
+      └── v4.8.x-docs-fix ← your feature branch
+```
 
 <br>
 <hr>
@@ -102,12 +105,12 @@ Reduce the branch list to:
 
 |   | Branch                            | Type      | Status | Notes                      
 |---|-----------------------------------|-----------|--------|----------------------------------------------------
-|✅| master                            | default   | keep   | Latest  stable (monorepo)
-|✅| v4.8.x                            | version   | keep   | v4.8.x - Latest "stable" - Start mistcommunity (monorepo)               
+|✅| v4.8.x                            | version   | keep   | v4.8.x - Latest - current default             
 |✅| v4.8.x-staging                    | version   | keep   | v4.8.x - Testing and staging          
 |✅| v4.7.x                            | legacy    | keep   | v4.7.x - Stable, keep for reference (state before mistcommunity fork)
 |🔥| master-backup                     | legacy    | temp   | Reference prior to mono-repo (maybe keep as v4.7.x??)
 |🔥| monorepo                          | legacy    | delete | Branch when creating monorepo
+|✅| master                            | default   | keep   | Latest  stable (monorepo)
 |🔀| feat/scaleway                     | feature   | merge  | To merge in to v4.8.x
 |🔀| v4.7.x-dev                        | develop   | merge  | Prior to using forks, to merge in to v4.8.x
 |🔀| v4.7.x-dev-elasticsearch-draft    | develop   | merge  | Prior to using forks, to merge in to v4.8.x
