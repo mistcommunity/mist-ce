@@ -4,3 +4,6 @@
 [submodule "api/lc"]
 	path = api/lc
 	url = https://github.com/apache/libcloud.git
+[submodule "docs/site/mistce-docs/themes/compose"]
+	path = docs/site/mistce-docs/themes/compose
+	url = https://github.com/onweru/compose.git

@@ -1,5 +1,5 @@
 <span id="top"></span>
-![banner](./docs/assets/banner_small.jpg)
+![banner](./docs/git/assets/banner_small.jpg)
 ![GitHub Tag](https://img.shields.io/github/v/tag/mistcommunity/mist-ce)
 ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/mistcommunity/mist-ce)
 ![GitHub repo size](https://img.shields.io/github/repo-size/mistcommunity/mist-ce)
@@ -14,9 +14,9 @@
 <p align="center">
   <i>Community Edition </i>
    <br/>
-  <img width="120" src="./docs/assets/logo_600.png" />
+  <img width="120" src="./docs/git/assets/logo_600.png" />
   <br/>
-  <b><a href="./docs/FEATURES.md">Features</a></b> | <b><a href="./docs/DOCKER.md">Getting Started</a></b> | <b><a href="./docs/ROADMAP.md">Road Map</a></b> | <b><a>Documentation</a></b> | <b><a href="https://github.com/mistcommunity/mist-ce/issues">Issues</a></b>
+  <b><a href="./docs/git/FEATURES.md">Features</a></b> | <b><a href="./docs/git/DOCKER.md">Getting Started</a></b> | <b><a href="./docs/git/ROADMAP.md">Road Map</a></b> | <b><a>Documentation</a></b> | <b><a href="https://github.com/mistcommunity/mist-ce/issues">Issues</a></b>
 </p>
 
 
@@ -42,18 +42,18 @@ mist-ce is an open-source, community maintained fork of [mist.io](https://github
 ## 🔗 Quick Links 
 
 |  | Link                                                                | Description
-|--|--------------------------------------------------------------------|-----------------
-|💡|[CONTRIBUTING](./docs/CONTRIBUTING.md)                              | Help to get started on contributing
+|--|---------------------------------------------------------------------|-----------------
+|💡|[CONTRIBUTING](./docs/git/CONTRIBUTING.md)                          | Help to get started on contributing
 |⚠️|[ISSUES](https://github.com/mistcommunity/mist-ce/issues)           | Check for bug reports & feature requests
 |🗪|[DISCUSSIONS](https://github.com/mistcommunity/mist-ce/discussions)  | Discuss the direction of mist
 |🔀|[PULL REQUESTS](https://github.com/mistcommunity/mist-ce/pulls)     | Existing pull requests
-|👨🏻‍💻|[DEVELOPERS](./docs/DEVELOPERS.md)                                  | Guide on developing
-|📝|[CHANGELOG](./docs/CHANGELOG.md)                                    | Current and legacy changelog
-|✨|[FEATURES](./docs/FEATURES.md)                                      | Feature tracking list
-|🗺️|[ROADMAP](./docs/ROADMAP.md)                                        | Rough development roadmap
-|🌿|[BRANCHES](./docs/BRANCHES.md)                                      | Audit of legacy branches
-|🔒|[SECURITY](./docs/SECURITY.md)                                      | Security information
-|🤗|[CONDUCT](./docs/CODE_OF_CONDUCT.md)                                | Code of Conduct
+|👨🏻‍💻|[DEVELOPERS](./docs/git/DEVELOPERS.md)                              | Guide on developing
+|📝|[CHANGELOG](./docs/git/CHANGELOG.md)                                | Current and legacy changelog
+|✨|[FEATURES](./docs/git/FEATURES.md)                                  | Feature tracking list
+|🗺️|[ROADMAP](./docs/git/ROADMAP.md)                                    | Rough development roadmap
+|🌿|[BRANCHES](./docs/git/BRANCHES.md)                                  | Audit of legacy branches
+|🔒|[SECURITY](./docs/git/SECURITY.md)                                  | Security information
+|🤗|[CONDUCT](./docs/git/CODE_OF_CONDUCT.md)                            | Code of Conduct
 
 <br>
 <hr>
@@ -68,7 +68,7 @@ From the post, they talk about how the sale impacted Mist Community Edition:
 > Impact on Mist Community Edition
 > Unfortunately, our current workload does not leave us any capacity to keep maintaining our open source offering. At the same time, Dell Technologies has no immediate plans to release new versions of the Mist Community Edition. The open source code will remain archived on github.com/mistio and we will welcome any community efforts to bring it back to life.
 
-This project, [mistcommunity/mist-ce](https://github.com/mistcommunity/mist-ce), aims to update the code so that Mist Community Edition works again, and is usable as an open source software. To see the status look at the [issues](https://github.com/mistcommunity/mist-ce/issues) page, or to try and spin it up, or help debug issues to get it working again, see the [CONTRIBUTING](./docs/CONTRIBUTING.md) guide.
+This project, [mistcommunity/mist-ce](https://github.com/mistcommunity/mist-ce), aims to update the code so that Mist Community Edition works again, and is usable as an open source software. To see the status look at the [issues](https://github.com/mistcommunity/mist-ce/issues) page, or to try and spin it up, or help debug issues to get it working again, see the [CONTRIBUTING](./docs/git/CONTRIBUTING.md) guide.
 
 <br>
 <hr>
@@ -93,12 +93,12 @@ Mist simplifies multi-cloud management. It offers a unified interface from where
 <a name="screenshots"></a>
 
 <p align="center">
-  <img src="./docs/assets/screenshots/mockup-imac-n.webp" width="100%">
+  <img src="./docs/git/assets/screenshots/mockup-imac-n.webp" width="100%">
 </p>
 
 <p align="center">
-  <img src="./docs/assets/screenshots/mockup-ipad-k.webp" height="300px" style="vertical-align: middle; margin-right: 10px;">
-  <img src="./docs/assets/screenshots/mockup-iphone-6-k.webp" height="320px" style="vertical-align: middle; transform: translateY(10px)">
+  <img src="./docs/git/assets/screenshots/mockup-ipad-k.webp" height="300px" style="vertical-align: middle; margin-right: 10px;">
+  <img src="./docs/git/assets/screenshots/mockup-iphone-6-k.webp" height="320px" style="vertical-align: middle; transform: translateY(10px)">
 </p>
 
 > These screenshots are from the original working project and do not represent the current state.
@@ -129,7 +129,7 @@ Some terms are used very often in Mist. Below is a list of the most basic ones t
 
 # ✨ Features
 
-See [FEATURES.md](./docs/FEATURES.md) for details.
+See [FEATURES.md](./docs/git/FEATURES.md) for details.
 
 ### 💡 Technologies
 - Support for more than 20 infrastructure technologies.
@@ -189,25 +189,25 @@ Mist is a cloud native application split into microservices which are packaged a
 
 The most notable components are the following:
 
-|                                                                                                     | Function            | Description
-|-----------------------------------------------------------------------------------------------------|---------------------|-------------- 
-| <img src="./docs/assets/logo_44.png" height="16" style="transform: translateY(3px)"/>               | **Mist UI**         | A web application built with Web Components and Polymer
-| <img src="./docs/assets/other/python.png" height="16" style="transform: translateY(3px)"/>          | **REST API**        | Backend service that serves requests from clients
-| <img src="./docs/assets/other/websockets.png" height="16" style="transform: translateY(3px)"/>      | **WebSocket API**   | Sends real-time updates to connected clients and proxies shell connections
-| <img src="./docs/assets/other/terminal.png" height="16" style="transform: translateY(3px)"/>        | **Hubshell**        | A service that opens SSH connections to machines or shell connections using the Docker API
-| <img src="./docs/assets/other/dramatiq.png" height="16" style="transform: translateY(3px)"/>        | **Dramatiq**        | Workers, running asynchronous jobs
-| <img src="./docs/assets/other/apscheduler.png" height="16" style="transform: translateY(3px)"/>     | **APScheduler**     | Scheduler that schedules polling tasks, rule checks, as well as user defined scheduled actions.
-| <img src="./docs/assets/other/rabbitmq.png" height="16" style="transform: translateY(3px)"/>        | **RabbitMQ**        | Message queue service.
-| <img src="./docs/assets/other/mongodb.png" height="16" style="transform: translateY(3px)"/>         | **MongoDB**         | The main database
-| <img src="./docs/assets/other/elasticsearch.png" height="16" style="transform: translateY(3px)"/>   | **Elasticsearch**   | For storing and searching logs
-| <img src="./docs/assets/other/logstash.png" height="16" style="transform: translateY(3px)"/>        | **Logstash**        | For routing logs to Elasticsearch
-| <img src="./docs/assets/other/telegraf.png" height="16" style="transform: translateY(3px)"/>        | **Telegraf**        | A data collection agent, installed on monitored machines.
-| <img src="./docs/assets/other/gocky.png" height="16" style="transform: translateY(3px)"/>           | **Gocky**           | The relay to receive and pre-process monitoring metrics
-| <img src="./docs/assets/other/influxdb.png" height="16" style="transform: translateY(3px)"/>        | **InfluxDB**        | Time series database for metrics
-| <img src="./docs/assets/other/victoriametrics.png" height="16" style="transform: translateY(3px)"/> | **VictoriaMetrics** | Alternative time series database.
+|                                                                                                         | Function            | Description
+|---------------------------------------------------------------------------------------------------------|---------------------|-------------- 
+| <img src="./docs/git/assets/logo_44.png" height="16" style="transform: translateY(3px)"/>               | **Mist UI**         | A web application built with Web Components and Polymer
+| <img src="./docs/git/assets/other/python.png" height="16" style="transform: translateY(3px)"/>          | **REST API**        | Backend service that serves requests from clients
+| <img src="./docs/git/assets/other/websockets.png" height="16" style="transform: translateY(3px)"/>      | **WebSocket API**   | Sends real-time updates to connected clients and proxies shell connections
+| <img src="./docs/git/assets/other/terminal.png" height="16" style="transform: translateY(3px)"/>        | **Hubshell**        | A service that opens SSH connections to machines or shell connections using the Docker API
+| <img src="./docs/git/assets/other/dramatiq.png" height="16" style="transform: translateY(3px)"/>        | **Dramatiq**        | Workers, running asynchronous jobs
+| <img src="./docs/git/assets/other/apscheduler.png" height="16" style="transform: translateY(3px)"/>     | **APScheduler**     | Scheduler that schedules polling tasks, rule checks, as well as user defined scheduled actions.
+| <img src="./docs/git/assets/other/rabbitmq.png" height="16" style="transform: translateY(3px)"/>        | **RabbitMQ**        | Message queue service.
+| <img src="./docs/git/assets/other/mongodb.png" height="16" style="transform: translateY(3px)"/>         | **MongoDB**         | The main database
+| <img src="./docs/git/assets/other/elasticsearch.png" height="16" style="transform: translateY(3px)"/>   | **Elasticsearch**   | For storing and searching logs
+| <img src="./docs/git/assets/other/logstash.png" height="16" style="transform: translateY(3px)"/>        | **Logstash**        | For routing logs to Elasticsearch
+| <img src="./docs/git/assets/other/telegraf.png" height="16" style="transform: translateY(3px)"/>        | **Telegraf**        | A data collection agent, installed on monitored machines.
+| <img src="./docs/git/assets/other/gocky.png" height="16" style="transform: translateY(3px)"/>           | **Gocky**           | The relay to receive and pre-process monitoring metrics
+| <img src="./docs/git/assets/other/influxdb.png" height="16" style="transform: translateY(3px)"/>        | **InfluxDB**        | Time series database for metrics
+| <img src="./docs/git/assets/other/victoriametrics.png" height="16" style="transform: translateY(3px)"/> | **VictoriaMetrics** | Alternative time series database.
 
 
-![Architecture.png](./docs/assets/Architecture.png)
+![Architecture.png](./docs/git/assets/Architecture.png)
 
 - The user interacts with the RESTful Mist API through client apps like the Mist UI in the browser or command line tools (e.g. cURL, Mist CLI, etc.).
 - The Mist UI, apart from invoking the RESTful API, also establishes a WebSocket connection. This is used to receive real time updates and to proxy shell connections to machines.
@@ -223,8 +223,8 @@ The most notable components are the following:
 # 🚀 Installation
 > [!WARNING]
 > NOT FOR PRODUCTION USE! \
-> With the current state of the codebase, we are still identifying what does and does not work. We can't guarantee a feature is operational **see [FEATURES](./docs/FEATURES.md)**. \
-> If you want to contribute by testing features, **see [CONTRIBUTING](./docs/CONTRIBUTING.md)**
+> With the current state of the codebase, we are still identifying what does and does not work. We can't guarantee a feature is operational **see [FEATURES](./docs/git/FEATURES.md)**. \
+> If you want to contribute by testing features, **see [CONTRIBUTING](./docs/git/CONTRIBUTING.md)**
 
 *tl;dr: **docker compose up -d***
 
@@ -233,10 +233,10 @@ We aim to simplify the process in the future, as well as including a Traefik doc
 
 You can install Mist in several ways, depending on your needs:
 
-- **Kubernetes** - [KUBERNETES.md](./docs/KUBERNETES.md)
-- **Docker** - [DOCKER.md](./docs/DOCKER.md)
-- **Development** - [DEVELOPERS.md](./docs/DEVELOPERS.md)
-- **~~App Store~~** - [MARKETPLACE.md](./docs/MARKETPLACE.md)
+- **Kubernetes** - [KUBERNETES.md](./docs/git/KUBERNETES.md)
+- **Docker** - [DOCKER.md](./docs/git/DOCKER.md)
+- **Development** - [DEVELOPERS.md](./docs/git/DEVELOPERS.md)
+- **~~App Store~~** - [MARKETPLACE.md](./docs/git/MARKETPLACE.md)
 
 
 <br>
@@ -259,6 +259,6 @@ You can install Mist in several ways, depending on your needs:
 <hr>
 <p  align="center">
   <i>Licensed under <a href="./LICENSE">Apache 2.0</a></i><br>
-  <img src="./docs/assets/logo_600.png" style="height: 120px"/><br>
+  <img src="./docs/git/assets/logo_600.png" style="height: 120px"/><br>
   <sup>Thanks for visiting :)</sup>
 </p>

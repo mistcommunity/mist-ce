@@ -1,0 +1,8 @@
+baseURL = "http://localhost/"
+languageCode = "en-us"
+title = "Mist Docs"
+theme = "compose"
+
+[module]
+[[module.imports]]
+  path = "github.com/onweru/compose"

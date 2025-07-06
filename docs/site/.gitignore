@@ -1,0 +1,4 @@
+/resources/_gen/
+/public/
+/hugo_stats.json
+/go.sum
