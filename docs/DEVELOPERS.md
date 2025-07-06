@@ -24,6 +24,8 @@ Thank you for considering embarking on this side quest. Let these tomes guide yo
 > [!TIP]
 > Although this works in Docker Desktop, it may be easier to set up a dedicated VM and remotely connect with VSCode or equivalent. That way the environment it always set up ready to go without conflicts. Or use a local Ubuntu development PC with Docker if you're a baller. 
 
+> Target the vx.x.x-staging branch for pull requests, see [BRANCHES.md](./BRANCHES.md)
+
 <br>
 <span id="requirements"></span>
 
@@ -42,9 +44,6 @@ Thank you for considering embarking on this side quest. Let these tomes guide yo
 <span id="fork"></span>
 
 ## 🔀 1. Fork
-
-> [!CAUTION]
-> Please don't fork yet. We are in the process of detaching from the upstream mistio/mist-ce repo. We can't detach until there are no downstram forks. 
 
 In the [https://github.com/mistcommunity/mist-ce](https://github.com/mistcommunity/mist-ce) repository on GitHub, click the Fork button to create a repository in your own personal GitHub account. 
 

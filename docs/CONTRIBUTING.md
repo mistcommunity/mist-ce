@@ -42,6 +42,8 @@ Whether you're new to open source or a seasoned contributor, there's something y
 > [!IMPORTANT]
 > Subject to change. We follow historical semantic versioning where possible, with plans to simplify. See [BRANCHES.md](./BRANCHES.md) for more on the current cleanup effort.
 
+> The latest minor version will be the default branch. 
+
 1. The latest minor version (e.g., `4.8.x`) has:
    - A **stable** branch (`4.8.x`)
    - A **staging** branch (`4.8.x-staging`) for incoming PRs
